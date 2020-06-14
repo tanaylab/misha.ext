@@ -1,0 +1,5 @@
+genome:
+  mm9: /net/mraid14/export/data/db/tgdb/mm9/trackdb/
+  mm10: /net/mraid14/export/data/db/tgdb/mm10/trackdb/
+  hg19: /net/mraid14/export/data/db/tgdb/hg19/trackdb/
+  hg38: /net/mraid14/export/data/db/tgdb/hg38/trackdb/

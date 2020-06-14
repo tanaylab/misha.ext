@@ -4,7 +4,14 @@
 \alias{fwrite_igv}
 \title{Write IGV file from intervals set data frame}
 \usage{
-fwrite_igv(data, file, type = NULL, ...)
+fwrite_igv(
+  data,
+  file,
+  type = NULL,
+  rm_intervalID = TRUE,
+  feature_name = 1,
+  ...
+)
 }
 \arguments{
 \item{data}{data frame with chrom,start,end and additional data columns}
@@ -12,6 +19,10 @@ fwrite_igv(data, file, type = NULL, ...)
 \item{file}{name of the output IGV file}
 
 \item{type}{data type for IGV viewer. Available options are: COPY_NUMBER, GENE_EXPRESSION, CHIP, DNA_METHYLATION, ALLELE_SPECIFIC_COPY_NUMBER, LOH, RNAI. Note that if \code{type} is set other viewer options (in \code{...}) would be ignored.}
+
+\item{rm_intervalID}{remove intervalID column from \code{data}}
+
+\item{feature_name}{feature name for IGV viewer}
 
 \item{...}{track parameters for IGV viewer. See: http://software.broadinstitute.org/software/igv/TrackLine.}
 }

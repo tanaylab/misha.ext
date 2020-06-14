@@ -17,10 +17,11 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 Imports: 
     tgutil,
+    tgconfig,
     misha,
     dplyr,
     purrr,
     glue,
     tibble
-Remotes: tanaylab/misha, tanaylab/tgutil
+Remotes: tanaylab/misha, tanaylab/tgutil, tanaylab/tgconfig
 

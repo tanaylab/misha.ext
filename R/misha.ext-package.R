@@ -5,6 +5,7 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @importFrom tibble tibble
+#' @importFrom glue glue
 #' @import misha
 #' @import tgutil
 ## usethis namespace: end
