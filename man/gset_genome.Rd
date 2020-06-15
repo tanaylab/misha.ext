@@ -16,7 +16,7 @@ Set misha root based on genome name
 }
 \examples{
 \dontrun{
- gset_genome("hg19")
+gset_genome("hg19")
 }
 
 }
