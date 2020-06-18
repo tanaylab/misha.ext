@@ -31,8 +31,8 @@ Write IGV file from intervals set data frame
 }
 \examples{
 \dontrun{
-fwrite_igv(d, "out.igv", graphType="points")
-fwrite_igv(d, "out.igv", type="DNA_METHYLATION")
+fwrite_igv(d, "out.igv", graphType = "points")
+fwrite_igv(d, "out.igv", type = "DNA_METHYLATION")
 }
 
 }

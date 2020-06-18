@@ -11,6 +11,7 @@ gextract_meth(
   iterator = "intervs.global.seq_CG",
   d_expand = NULL,
   join_intervals = FALSE,
+  extract_meth_calls = FALSE,
   ...
 )
 }
@@ -27,10 +28,12 @@ gextract_meth(
 
 \item{join_intervals}{add the intervals to the returned data frame (using left_join)}
 
+\item{extract_meth_calls}{extract also methylation calls (".meth" tracks)}
+
 \item{...}{additional arguments to \link[misha]{gextract}}
 }
 \value{
-data frame with a column with average methylation for each track, and another column with ".cov" suffix with every track's coverage
+data frame with a column with average methylation for each track, and another column with ".cov" suffix with every track's coverage. If \code{extract_meth_calls} is TRUE - additional columns with ".meth" suffix with number of methylation calls per track.
 }
 \description{
 gextract methylation data
