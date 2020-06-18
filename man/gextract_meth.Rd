@@ -7,9 +7,9 @@
 gextract_meth(
   tracks,
   names = NULL,
-  d_expand = NULL,
   intervals = gintervals.all(),
   iterator = "intervs.global.seq_CG",
+  d_expand = NULL,
   join_intervals = FALSE,
   ...
 )
@@ -19,11 +19,11 @@ gextract_meth(
 
 \item{names}{sets the columns names in the returned value.}
 
-\item{d_expand}{smooth the methylation signal \code{d_expand} bp from each side (optional).}
-
 \item{intervals}{genomic scope for which the function is applied}
 
 \item{iterator}{track expression iterator. If "NULL" iterator is based on CpGs}
+
+\item{d_expand}{smooth the methylation signal \code{d_expand} bp from each side (optional).}
 
 \item{join_intervals}{add the intervals to the returned data frame (using left_join)}
 

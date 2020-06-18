@@ -2,9 +2,9 @@
 #'
 #' @param tracks name of methylation track suffix (without ".cov" or ".meth")
 #' @param names sets the columns names in the returned value.
-#' @param d_expand smooth the methylation signal \code{d_expand} bp from each side (optional).
 #' @param intervals genomic scope for which the function is applied
 #' @param iterator track expression iterator. If "NULL" iterator is based on CpGs
+#' @param d_expand smooth the methylation signal \code{d_expand} bp from each side (optional).
 #' @param join_intervals add the intervals to the returned data frame (using left_join)
 #' @param ... additional arguments to \link[misha]{gextract}
 #'
@@ -12,7 +12,7 @@
 #'
 #' @seealso \link[misha]{gextract}
 #' @export
-gextract_meth <- function(tracks, names = NULL, d_expand = NULL, intervals = gintervals.all(), iterator = "intervs.global.seq_CG", join_intervals = FALSE, ...) {
+gextract_meth <- function(tracks, names = NULL, intervals = gintervals.all(), iterator = "intervs.global.seq_CG", d_expand = NULL, join_intervals = FALSE, ...) {
   cov_vtracks <- glue("{names}_smoo.cov")
   walk2(cov_vtracks, glue("{tracks}.cov"), ~ gvtrack.create(.x, .y, "sum"))
   meth_vtracks <- glue("{names}_smoo.meth")
