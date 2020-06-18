@@ -11,10 +11,10 @@ misha.ext
 Installation
 ------------
 
-You can install the released version of misha.ext from [CRAN](https://CRAN.R-project.org) with:
+You can install the latest version of misha.ext using:
 
 ``` r
-devtools::install_github("tanaylab/misha.ext")
+remotes::install_github("tanaylab/misha.ext")
 ```
 
 Examples
