@@ -24,7 +24,7 @@ writes a data frame with a header
 }
 \examples{
 \dontrun{
-fwrite_header(mtcars, file=tempfile(), header="# this is a header", sep="\t")
+fwrite_header(mtcars, file = tempfile(), header = "# this is a header", sep = "\\\\t")
 }
 
 }

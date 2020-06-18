@@ -22,6 +22,6 @@ Imports:
     dplyr,
     purrr,
     glue,
-    tibble
+    tibble,
+    magrittr
 Remotes: tanaylab/misha, tanaylab/tgutil, tanaylab/tgconfig
-
