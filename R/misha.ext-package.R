@@ -11,6 +11,7 @@
 #' @importFrom purrr walk
 #' @importFrom purrr walk2
 #' @importFrom rlang set_names
+#' @import dplyr
 #' @import misha
 #' @import tgutil
 ## usethis namespace: end

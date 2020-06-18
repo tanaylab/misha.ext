@@ -6,10 +6,11 @@
 #' @param intervals genomic scope for which the function is applied
 #' @param iterator track expression iterator. If "NULL" iterator is based on CpGs
 #' @param join_intervals add the intervals to the returned data frame (using left_join)
-#' @param ... additional arguments to \code{gextract}
+#' @param ... additional arguments to \link[misha]{gextract}
 #'
 #' @return data frame with a column with average methylation for each track, and another column with ".cov" suffix with every track's coverage
 #'
+#' @seealso \link[misha]{gextract}
 #' @export
 gextract_meth <- function(tracks, names = NULL, d_expand = NULL, intervals = gintervals.all(), iterator = "intervs.global.seq_CG", join_intervals = FALSE, ...) {
   cov_vtracks <- glue("{names}_smoo.cov")

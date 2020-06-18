@@ -27,11 +27,14 @@ gextract_meth(
 
 \item{join_intervals}{add the intervals to the returned data frame (using left_join)}
 
-\item{...}{additional arguments to \code{gextract}}
+\item{...}{additional arguments to \link[misha]{gextract}}
 }
 \value{
 data frame with a column with average methylation for each track, and another column with ".cov" suffix with every track's coverage
 }
 \description{
 gextract methylation data
+}
+\seealso{
+\link[misha]{gextract}
 }
