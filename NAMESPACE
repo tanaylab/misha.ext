@@ -3,6 +3,7 @@
 export("%>%")
 export(fwrite_header)
 export(fwrite_igv)
+export(gcluster.run2)
 export(gextract.left_join)
 export(gextract_meth)
 export(gintervals.filter)
