@@ -13,9 +13,9 @@
 #' @param mem_tot memory requirments for the machine (non-consumable)
 #' @param threads threads requirments (would be called using \code{threads_flag})
 #' @param io_saturation io_saturation requirments (would be called using \code{io_saturation_flag})
-#' @param memory_flag flag for memory requirment (formatted as in qq)
-#' @param threads_flag flag for threads requirment (formatted as in qq)
-#' @param io_saturation_flag flag for io_saturation requirment (formatted as in qq)
+#' @param memory_flag flag for memory requirment (formatted as in glue)
+#' @param threads_flag flag for threads requirment (formatted as in glue)
+#' @param io_saturation_flag flag for io_saturation requirment (formatted as in glue)
 #'
 #' @return if collapse_results is TRUE: data frame with the results of all jobs (rbinded).
 #' if collapse_results is FALSE returns the same as: \link[misha]{gcluster.run}
@@ -40,12 +40,12 @@ gcluster.run2 <- function (...,
                            threads = NULL,
                            io_saturation = NULL,
                            num_proc = NULL,
-                           queue_flag = '-q @{queue}',
-                           memory_flag = '-l mem_free=@{memory}G',
+                           queue_flag = '-q {queue}',
+                           memory_flag = '-l mem_free={memory}G',
                            mem_tot_flag = '-l mem_total=@{mem_tot}G',
-                           threads_flag = '-pe threads @{threads}',
-                           io_saturation_flag = '-l io_saturation=@{io_saturation}',
-                           num_proc_flag = '-l num_proc=@{num_proc}',
+                           threads_flag = '-pe threads {threads}',
+                           io_saturation_flag = '-l io_saturation={io_saturation}',
+                           num_proc_flag = '-l num_proc={num_proc}',
                            script = system.file("bin", "sgjob.sh", package="gpatterns")){    
     if (!is.null(command_list)){ 
         commands <- purrr::map(command_list, function(x) parse(text=x))
@@ -54,26 +54,26 @@ gcluster.run2 <- function (...,
     }
 
     if (!is.null(queue)){
-        opt.flags <- paste(opt.flags, qq(queue_flag))
+        opt.flags <- paste(opt.flags, glue(queue_flag))
     }
 
     if (!is.null(memory)){
-        opt.flags <- paste(opt.flags, qq(memory_flag))
+        opt.flags <- paste(opt.flags, glue(memory_flag))
     }
 
     if (!is.null(mem_tot)){
-        opt.flags <- paste(opt.flags, qq(mem_tot_flag))
+        opt.flags <- paste(opt.flags, glue(mem_tot_flag))
     }
 
     if (!is.null(threads)){
-        opt.flags <- paste(opt.flags, qq(threads_flag))
+        opt.flags <- paste(opt.flags, glue(threads_flag))
     }
     if (!is.null(io_saturation)){
-        opt.flags <- paste(opt.flags, qq(io_saturation_flag))
+        opt.flags <- paste(opt.flags, glue(io_saturation_flag))
     }
 
     if (!is.null(num_proc)){
-        opt.flags <- paste(opt.flags, qq(num_proc_flag))
+        opt.flags <- paste(opt.flags, glue(num_proc_flag))
     }
 
     if (length(commands) < 1)
