@@ -21,12 +21,12 @@ gcluster.run2(
   threads = NULL,
   io_saturation = NULL,
   num_proc = NULL,
-  queue_flag = "-q @{queue}",
-  memory_flag = "-l mem_free=@{memory}G",
-  mem_tot_flag = "-l mem_total=@{mem_tot}G",
-  threads_flag = "-pe threads @{threads}",
-  io_saturation_flag = "-l io_saturation=@{io_saturation}",
-  num_proc_flag = "-l num_proc=@{num_proc}",
+  queue_flag = "-q {queue}",
+  memory_flag = "-l mem_free={memory}G",
+  mem_tot_flag = "-l mem_total={mem_tot}G",
+  threads_flag = "-pe threads {threads}",
+  io_saturation_flag = "-l io_saturation={io_saturation}",
+  num_proc_flag = "-l num_proc={num_proc}",
   script = system.file("bin", "sgjob.sh", package = "gpatterns")
 )
 }
@@ -61,11 +61,11 @@ if not possible - would return the usual list.}
 
 \item{io_saturation}{io_saturation requirments (would be called using \code{io_saturation_flag})}
 
-\item{memory_flag}{flag for memory requirment (formatted as in qq)}
+\item{memory_flag}{flag for memory requirment (formatted as in glue)}
 
-\item{threads_flag}{flag for threads requirment (formatted as in qq)}
+\item{threads_flag}{flag for threads requirment (formatted as in glue)}
 
-\item{io_saturation_flag}{flag for io_saturation requirment (formatted as in qq)}
+\item{io_saturation_flag}{flag for io_saturation requirment (formatted as in glue)}
 }
 \value{
 if collapse_results is TRUE: data frame with the results of all jobs (rbinded).
