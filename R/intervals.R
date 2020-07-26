@@ -75,3 +75,15 @@ gextract.left_join <- function(expr, intervals = NULL, colnames = NULL, iterator
         select(-intervalID)
     return(d)
 }
+
+
+#' Define promoter regions
+#' @param upstream bp upstream to TSS
+#' @param downstream bp downstread from tss
+#'
+#' @export
+get_promoters <- function(upstream=500, downstream=50){
+    gintervals.load("intervs.global.tss") %>% 
+        mutate(start = ifelse(strand == 1, start - upstream, start - downstream), end = ifelse(strand == 1, end + downstream, end + upstream)) %>% 
+        gintervals.force_range()
+}
