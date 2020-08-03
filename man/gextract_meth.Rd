@@ -12,6 +12,9 @@ gextract_meth(
   d_expand = NULL,
   join_intervals = FALSE,
   extract_meth_calls = FALSE,
+  avg_tracks = NULL,
+  avg_tracks_names = NULL,
+  min_cov = NULL,
   ...
 )
 }
@@ -29,6 +32,12 @@ gextract_meth(
 \item{join_intervals}{add the intervals to the returned data frame (using left_join)}
 
 \item{extract_meth_calls}{extract also methylation calls (".meth" tracks)}
+
+\item{avg_tracks}{tracks of average methylation (for tracks that do not have ".cov" and ".meth" tracks)}
+
+\item{avg_tracks_names}{names of tracks in \code{avg_tracks} (optional)}
+
+\item{min_cov}{minimal coverage per track. If the coverage is below this number the methylation values would be changed to NA.}
 
 \item{...}{additional arguments to \link[misha]{gextract}}
 }
