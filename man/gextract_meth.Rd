@@ -14,6 +14,8 @@ gextract_meth(
   extract_meth_calls = FALSE,
   avg_tracks = NULL,
   avg_tracks_names = NULL,
+  annot_tracks = NULL,
+  annot_tracks_names = NULL,
   min_cov = NULL,
   ...
 )
@@ -36,6 +38,10 @@ gextract_meth(
 \item{avg_tracks}{tracks of average methylation (for tracks that do not have ".cov" and ".meth" tracks)}
 
 \item{avg_tracks_names}{names of tracks in \code{avg_tracks} (optional)}
+
+\item{annot_tracks}{other tracks to extract}
+
+\item{annot_tracks_names}{names of annotation tracks}
 
 \item{min_cov}{minimal coverage per track. If the coverage is below this number the methylation values would be changed to NA.}
 
