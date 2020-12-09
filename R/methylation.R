@@ -23,6 +23,9 @@ annot_tracks_names = NULL, min_cov=NULL, ...) {
     opt <- options(gmax.data.size = 1e9)
     on.exit(options(opt))
 
+    names <- names %||% tracks
+    annot_tracks_names <- annot_tracks_names %||% annot_tracks
+
     cov_vtracks <- glue("{names}_smoo.cov")
     walk2(cov_vtracks, glue("{tracks}.cov"), ~ gvtrack.create(.x, .y, "sum"))
     meth_vtracks <- glue("{names}_smoo.meth")
@@ -31,10 +34,7 @@ annot_tracks_names = NULL, min_cov=NULL, ...) {
     if (!is.null(d_expand)) {
         walk(cov_vtracks, ~ gvtrack.iterator(.x, sshift = -d_expand, eshift = d_expand))
         walk(meth_vtracks, ~ gvtrack.iterator(.x, sshift = -d_expand, eshift = d_expand))
-    }
-
-    names <- names %||% tracks
-    annot_tracks_names <- annot_tracks_names %||% annot_tracks
+    }    
 
     if (join_intervals) {
         func <- misha.ext::gextract.left_join
