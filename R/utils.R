@@ -48,7 +48,8 @@ pmean <- function(..., na.rm = FALSE) {
 intervs_to_mat <- function(df){    
     mat <- df %>% 
         unite("coord", chrom:end) %>% 
-        as.data.frame() %>% 
+        as.data.frame() %>%
+	remove_rownames() %>%  
         column_to_rownames("coord") %>% 
         as.matrix()
 
