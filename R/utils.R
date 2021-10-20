@@ -67,8 +67,8 @@ intervs_to_mat <- function(df){
 mat_to_intervs <- function(mat){
     df <- mat %>% 
         as.data.frame() %>% 
-        rownames_to_column("coord") %>% 
-        separate(coord, c("chrom", "start", "end"), sep="_") %>% 
+        tibble::rownames_to_column("coord") %>% 
+        tidyr::separate(coord, c("chrom", "start", "end"), sep="_") %>% 
         mutate(start = as.numeric(start), end = as.numeric(end))
 
     return(df)
