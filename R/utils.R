@@ -47,10 +47,10 @@ pmean <- function(..., na.rm = FALSE) {
 #' @export
 intervs_to_mat <- function(df){    
     mat <- df %>% 
-        unite("coord", chrom:end) %>% 
+        tidyr::unite("coord", chrom:end) %>% 
         as.data.frame() %>%
-	remove_rownames() %>%  
-        column_to_rownames("coord") %>% 
+	tibble::remove_rownames() %>%  
+        tibble::column_to_rownames("coord") %>% 
         as.matrix()
 
     return(mat)
