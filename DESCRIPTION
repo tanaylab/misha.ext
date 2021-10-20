@@ -23,6 +23,7 @@ Imports:
     purrr,
     glue,
     tibble,
+    tidyr,
     magrittr,
     stringi
 Remotes: tanaylab/misha, tanaylab/tgutil, tanaylab/tgconfig
