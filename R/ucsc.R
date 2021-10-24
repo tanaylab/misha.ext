@@ -36,7 +36,9 @@ fwrite_ucsc <- function(intervals, file, name, type = NULL, description = "", co
     }
 
     if (rm_intervalID) {
-        intervals <- intervals %>% select(-intervalID)
+        if (rlang::has_name(intervals, "intervalID")){
+            intervals <- intervals %>% select(-intervalID)
+        }        
     }
 
     data1 <- intervals %>%
