@@ -3,6 +3,7 @@
 export("%>%")
 export(fwrite_header)
 export(fwrite_igv)
+export(fwrite_ucsc)
 export(gcluster.run2)
 export(get_promoters)
 export(gextract.left_join)

@@ -27,7 +27,7 @@ gcluster.run2(
   threads_flag = "-pe threads {threads}",
   io_saturation_flag = "-l io_saturation={io_saturation}",
   num_proc_flag = "-l num_proc={num_proc}",
-  script = system.file("bin", "sgjob.sh", package = "gpatterns")
+  script = system.file("bin", "sgjob.sh", package = "misha.ext")
 )
 }
 \arguments{
