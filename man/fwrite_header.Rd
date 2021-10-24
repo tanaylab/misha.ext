@@ -4,7 +4,15 @@
 \alias{fwrite_header}
 \title{writes a data frame with a header}
 \usage{
-fwrite_header(data, file, header, sep = ",", ...)
+fwrite_header(
+  data,
+  file,
+  header,
+  sep = ",",
+  col_names = FALSE,
+  append = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{data frame}
@@ -12,6 +20,10 @@ fwrite_header(data, file, header, sep = ",", ...)
 \item{file}{output file name}
 
 \item{header}{string with the header}
+
+\item{col_names}{write column names}
+
+\item{append}{append to an existing file}
 
 \item{...}{
   Arguments passed on to \code{\link[tgutil:fwrite]{tgutil::fwrite}}
