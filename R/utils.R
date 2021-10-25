@@ -15,7 +15,7 @@
 #' }
 #'
 #' @export
-fwrite_header <- function(data, file, header, sep = ",", col_names = FALSE, append = FALSE, ...) {
+fwrite_header <- function(data, file, header, sep = ",", col_names = FALSE, append = FALSE, scipen = 20, ...) {
     h1 <- paste(header, collapse = sep)
     if (col_names) {
         h2 <- paste(names(data), collapse = sep)
@@ -24,7 +24,7 @@ fwrite_header <- function(data, file, header, sep = ",", col_names = FALSE, appe
         write(h1, file, append = append)
     }
 
-    fwrite(data, file, sep = sep, append = TRUE, col.names = FALSE, row.names = FALSE, ...)
+    fwrite(data, file, sep = sep, append = TRUE, col.names = FALSE, row.names = FALSE, scipen = scipen, ...)
 }
 
 
