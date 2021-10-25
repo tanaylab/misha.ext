@@ -75,6 +75,7 @@ write_wig <- function(df, file) {
     for (chrom in unique(df$chrom)) {
         data <- df %>%
             filter(chrom == !!chrom) %>%
+            mutate(start = start + 1, end = end + 1) %>%
             arrange(start) %>%
             select(start, score)
         header <- glue("variableStep  chrom={chrom}")
