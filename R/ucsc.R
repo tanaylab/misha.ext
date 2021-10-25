@@ -55,7 +55,10 @@ fwrite_ucsc <- function(intervals, file, name, type = NULL, description = "", co
     }
 
     if (!is.null(type) && type == "wig") {
-        write(header, file, append = append)
+        if (append){
+            stop("Unable to use type 'wig' and 'append=TRUE'")
+        }
+        write(header, file, append = FALSE)
         write_wig(data1, file)
     } else {
         data1 <- data1 %>%
