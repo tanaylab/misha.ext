@@ -9,7 +9,7 @@
 #' @param extract_meth_calls extract also methylation calls (".meth" tracks)
 #' @param avg_tracks tracks of average methylation (for tracks that do not have ".cov" and ".meth" tracks)
 #' @param avg_tracks_names names of tracks in \code{avg_tracks} (optional)
-#' @param annot_tracks other tracks to extract 
+#' @param annot_tracks other tracks to extract
 #' @param annot_tracks_names names of annotation tracks
 #' @param min_cov minimal coverage per track. If the coverage is below this number the methylation values would be changed to NA.
 #' @param ... additional arguments to \link[misha]{gextract}
@@ -18,8 +18,8 @@
 #'
 #' @seealso \link[misha]{gextract}
 #' @export
-gextract_meth <- function(tracks, names = NULL, intervals = gintervals.all(), iterator = "intervs.global.seq_CG", d_expand = NULL, join_intervals = FALSE, extract_meth_calls = FALSE, avg_tracks=NULL, avg_tracks_names=NULL, annot_tracks = NULL,
-annot_tracks_names = NULL, min_cov=NULL, ...) {
+gextract_meth <- function(tracks, names = NULL, intervals = gintervals.all(), iterator = "intervs.global.seq_CG", d_expand = NULL, join_intervals = FALSE, extract_meth_calls = FALSE, avg_tracks = NULL, avg_tracks_names = NULL, annot_tracks = NULL,
+                          annot_tracks_names = NULL, min_cov = NULL, ...) {
     opt <- options(gmax.data.size = 1e9)
     on.exit(options(opt))
 
@@ -34,7 +34,7 @@ annot_tracks_names = NULL, min_cov=NULL, ...) {
     if (!is.null(d_expand)) {
         walk(cov_vtracks, ~ gvtrack.iterator(.x, sshift = -d_expand, eshift = d_expand))
         walk(meth_vtracks, ~ gvtrack.iterator(.x, sshift = -d_expand, eshift = d_expand))
-    }    
+    }
 
     if (join_intervals) {
         func <- misha.ext::gextract.left_join
@@ -43,18 +43,17 @@ annot_tracks_names = NULL, min_cov=NULL, ...) {
     }
 
     if (extract_meth_calls) {
-        if (!is.null(avg_tracks)){
+        if (!is.null(avg_tracks)) {
             stop("cannot use 'extract_meth_calls' option with avg_tracks")
         }
         data <- func(c(glue("{meth_vtracks} / {cov_vtracks}"), cov_vtracks, meth_vtracks, annot_tracks), intervals = intervals, iterator = iterator, colnames = c(names, glue("{names}.cov"), glue("{names}.meth"), annot_tracks_names), ...)
     } else {
-        if (!is.null(avg_tracks)){
-            avg_names <- avg_tracks_names %||% avg_tracks            
+        if (!is.null(avg_tracks)) {
+            avg_names <- avg_tracks_names %||% avg_tracks
             data <- func(c(glue("{meth_vtracks} / {cov_vtracks}"), cov_vtracks, glue("{avg_tracks}.avg"), annot_tracks), intervals = intervals, iterator = iterator, colnames = c(names, glue("{names}.cov"), avg_names, annot_tracks_names), ...)
-        } else {            
+        } else {
             data <- func(c(glue("{meth_vtracks} / {cov_vtracks}"), cov_vtracks, annot_tracks), intervals = intervals, iterator = iterator, colnames = c(names, glue("{names}.cov"), annot_tracks_names), ...)
         }
-        
     }
 
     replace_list <- map(glue("{names}.cov"), ~0) %>% set_names(glue("{names}.cov"))
@@ -62,12 +61,12 @@ annot_tracks_names = NULL, min_cov=NULL, ...) {
 
     data <- as_tibble(data)
 
-    if (!is.null(min_cov)){
-        for (n in names){
+    if (!is.null(min_cov)) {
+        for (n in names) {
             f <- data[[glue("{n}.cov")]] < min_cov
             data[[n]][f] <- NA
         }
-    }    
+    }
 
     return(data)
 }
