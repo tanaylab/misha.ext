@@ -11,6 +11,7 @@ fwrite_header(
   sep = ",",
   col_names = FALSE,
   append = FALSE,
+  scipen = 20,
   ...
 )
 }

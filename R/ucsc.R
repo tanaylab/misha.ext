@@ -8,6 +8,7 @@
 #' @param color color of the track in the genome browser
 #' @param append append to an existing file
 #' @param rm_intervalID remove intervalID column from `intervals`
+#' @param span span parameter for \code{type = "wig"}
 #' @param ... list of additional attributes such as group or priority. See: https://genome.ucsc.edu/goldenPath/help/customTrack.html
 #'
 #' @examples
@@ -18,7 +19,7 @@
 #' }
 #'
 #' @export
-fwrite_ucsc <- function(intervals, file, name, type = NULL, description = "", color = "black", rm_intervalID = TRUE, append = FALSE, ...) {
+fwrite_ucsc <- function(intervals, file, name, type = NULL, description = "", color = "black", rm_intervalID = TRUE, append = FALSE, sparse = TRUE, span=NULL, ...) {
     color <- paste0(grDevices::col2rgb(color)[, 1], collapse = ",")
     header <- paste0("track ", glue("name={name} description=\"{description}\" color={color}"))
 
@@ -59,7 +60,7 @@ fwrite_ucsc <- function(intervals, file, name, type = NULL, description = "", co
             stop("Unable to use type 'wig' and 'append=TRUE'")
         }
         write(header, file, append = FALSE)
-        write_wig(data1, file)
+        write_wig(data1, file, span = span)
     } else {
         data1 <- data1 %>%
             mutate(start = start + 1, end = end + 1) %>%
@@ -71,14 +72,21 @@ fwrite_ucsc <- function(intervals, file, name, type = NULL, description = "", co
 }
 
 
-write_wig <- function(df, file) {
+write_wig <- function(df, file, span = NULL) {
+    
     for (chrom in unique(df$chrom)) {
         data <- df %>%
             filter(chrom == !!chrom) %>%
             mutate(start = start + 1, end = end + 1) %>%
             arrange(start) %>%
             select(start, score)
-        header <- glue("variableStep  chrom={chrom}")
+        if (!is.null(span)) {
+            header <- glue("variableStep chrom={chrom} span={span}")
+        } else {
+            header <- glue("variableStep chrom={chrom}")
+        }
+        
         fwrite_header(data, file = file, header = header, sep = "\t", quote = FALSE, col_names = FALSE, append = TRUE)
     }
 }
+
