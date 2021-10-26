@@ -74,9 +74,6 @@ if collapse_results is FALSE returns the same as: \link[misha]{gcluster.run}
 \description{
 Runs R commands on a cluster that supports SGE
 }
-\examples{
-
-}
 \seealso{
 \link[misha]{gcluster.run}
 }

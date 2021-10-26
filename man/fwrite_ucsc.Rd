@@ -13,6 +13,8 @@ fwrite_ucsc(
   color = "black",
   rm_intervalID = TRUE,
   append = FALSE,
+  sparse = TRUE,
+  span = NULL,
   ...
 )
 }
@@ -33,6 +35,8 @@ fwrite_ucsc(
 
 \item{append}{append to an existing file}
 
+\item{span}{span parameter for \code{type = "wig"}}
+
 \item{...}{list of additional attributes such as group or priority. See: https://genome.ucsc.edu/goldenPath/help/customTrack.html}
 }
 \description{
@@ -42,7 +46,7 @@ Write USCS genome browser file from intervals set data frame
 \dontrun{
 fwrite_ucsc(d, "out.ucsc", type = "broadPeak", color = "red")
 fwrite_ucsc(d1, "out.ucsc", type = "broadPeak", color = "blue", append = TRUE)
-fwrite_ucsc(d1, "out.ucsc", type = "broadPeak", color = "green", append = TRUE, list(visibility = 3, offset=15))
+fwrite_ucsc(d1, "out.ucsc", type = "broadPeak", color = "green", append = TRUE, list(visibility = 3, offset = 15))
 }
 
 }
