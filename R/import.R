@@ -14,7 +14,7 @@ gtrack.import_mappedseq_bam <- function(bam_files, ...){
     files <- paste(bam_files, collapse=' ')
     tmp_fifo <- tempfile()
     tryCatch({
-        system(glue('mkfifo {tmp_fifo}; {cat_cmd} @{files} | samtools view -h > {tmp_fifo}'), wait=FALSE)
+        system(glue('mkfifo {tmp_fifo}; {cat_cmd} {files} | samtools view -h > {tmp_fifo}'), wait=FALSE)
         gtrack.import_mappedseq(file=tmp_fifo, cols.order=NULL, ...)
         }, finally=system(glue('rm -f {tmp_fifo}')))
 }
