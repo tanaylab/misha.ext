@@ -4,12 +4,24 @@
 \alias{gtrack.import_mappedseq_bam}
 \title{Wrapper around gtrack.import_mappedseq for (multiple) bam files}
 \usage{
-gtrack.import_mappedseq_bam(bam_files, ...)
+gtrack.import_mappedseq_bam(bam_files, min_mapq = NULL, ...)
 }
 \arguments{
 \item{bam_files}{vector of bam (or sam) files to import}
 
-\item{...}{parameters of gtrack.import_mappedseq}
+\item{min_mapq}{skip alignments with MAPQ smaller than \code{min_mapq}}
+
+\item{...}{
+  Arguments passed on to \code{\link[misha:gtrack.import_mappedseq]{misha::gtrack.import_mappedseq}}
+  \describe{
+    \item{\code{track}}{track name}
+    \item{\code{description}}{a character string description}
+    \item{\code{file}}{name of mapped sequences file}
+    \item{\code{pileup}}{interval expansion}
+    \item{\code{binsize}}{bin size of a dense track}
+    \item{\code{cols.order}}{order of sequece, chromosome, coordinate and strand columns in mapped sequences file or NULL if SAM file is used}
+    \item{\code{remove.dups}}{if 'TRUE' the duplicated coordinates are counted only once.}
+  }}
 }
 \value{
 

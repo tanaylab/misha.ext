@@ -22,7 +22,6 @@
 #'
 #' @export
 #' @seealso \link[misha]{gcluster.run}
-#' @examples
 gcluster.run2 <- function(...,
                           command_list = NULL,
                           opt.flags = "",
