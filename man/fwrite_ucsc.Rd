@@ -43,7 +43,6 @@ fwrite_ucsc(
 Write USCS genome browser file from intervals set data frame
 }
 \examples{
-
 \dontrun{
 gset_genome("mm9")
 intervals <- gintervals(1, c(3025716, 3052742, 3181668), c(3026216, 3053242, 3182168))

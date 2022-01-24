@@ -75,15 +75,15 @@ gcluster.run2 <- function(...,
     }
 
     if (length(commands) < 1) {
-          stop("Usage: gcluster.run2(..., command_list = NULL, opt.flags = \"\" max.jobs = 400, debug = FALSE)",
-              call. = F
-          )
-      }
+        stop("Usage: gcluster.run2(..., command_list = NULL, opt.flags = \"\" max.jobs = 400, debug = FALSE)",
+            call. = F
+        )
+    }
     if (!length(system("which qsub", ignore.stderr = T, intern = T))) {
-          stop("gcluster.run2 must run on a host that supports Sun Grid Engine (qsub)",
-              call. = F
-          )
-      }
+        stop("gcluster.run2 must run on a host that supports Sun Grid Engine (qsub)",
+            call. = F
+        )
+    }
     .gcheckroot()
     tmp.dirname <- ""
     submitted.jobs <- c()
@@ -94,10 +94,10 @@ gcluster.run2 <- function(...,
                 sep = ""
             ))
             if (!dir.create(tmp.dirname, recursive = T, mode = "0777")) {
-                  stop(sprintf("Failed to create a directory %s", tmp.dirname),
-                      call. = F
-                  )
-              }
+                stop(sprintf("Failed to create a directory %s", tmp.dirname),
+                    call. = F
+                )
+            }
             cat("Preparing for distribution...\n")
             save(.GLIBDIR, file = paste(tmp.dirname, "libdir", sep = "/"))
             vars <- ls(all.names = TRUE, envir = parent.frame())
@@ -158,14 +158,14 @@ gcluster.run2 <- function(...,
                         )
                         jobid <- system(command, intern = TRUE)
                         if (length(jobid) != 1) {
-                              stop("Failed to run qsub", call. = FALSE)
-                          }
+                            stop("Failed to run qsub", call. = FALSE)
+                        }
                         if (debug) {
-                              cat(sprintf(
-                                  "\tSubmitted job %d (id: %s)\n",
-                                  i, jobid
-                              ))
-                          }
+                            cat(sprintf(
+                                "\tSubmitted job %d (id: %s)\n",
+                                i, jobid
+                            ))
+                        }
                         submitted.jobs <- c(submitted.jobs, jobid)
                     }
                 }
@@ -185,8 +185,8 @@ gcluster.run2 <- function(...,
                     }
                     if (!length(running.jobs) && length(submitted.jobs) ==
                         length(commands)) {
-                          break
-                      }
+                        break
+                    }
                     new.progress <- length(completed.jobs)
                     if (new.progress != progress) {
                         progress <- new.progress
@@ -195,25 +195,23 @@ gcluster.run2 <- function(...,
                             length(commands) - progress
                         ))
                     }
-                }
-                else {
+                } else {
                     if (!length(running.jobs) && length(submitted.jobs) ==
                         length(commands)) {
-                          break
-                      }
+                        break
+                    }
                     new.progress <- as.integer(100 * length(completed.jobs) / length(commands))
                     if (new.progress != progress) {
                         progress <- new.progress
                         cat(sprintf("%d%%...", progress))
-                    }
-                    else {
+                    } else {
                         cat(".")
                     }
                 }
             }
             if (!debug && progress != -1 && progress != 100) {
-                  cat("100%\n")
-              }
+                cat("100%\n")
+            }
         },
         interrupt = function(interrupt) {
             cat("\n")
@@ -230,8 +228,8 @@ gcluster.run2 <- function(...,
                     res$stdout <- NA
                     res$stderr <- NA
                     if (submitted.jobs[i] %in% running.jobs) {
-                          res$exit.status <- "interrupted"
-                      } else {
+                        res$exit.status <- "interrupted"
+                    } else {
                         fname <- sprintf(
                             "%s/%d.retv", tmp.dirname,
                             i
@@ -240,8 +238,7 @@ gcluster.run2 <- function(...,
                             load(fname)
                             res$exit.status <- "success"
                             res$retv <- retv
-                        }
-                        else {
+                        } else {
                             res$exit.status <- "failure"
                         }
                     }
