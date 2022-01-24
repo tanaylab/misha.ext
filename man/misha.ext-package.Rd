@@ -4,9 +4,9 @@
 \name{misha.ext-package}
 \alias{misha.ext}
 \alias{misha.ext-package}
-\title{misha.ext: What the Package Does (One Line, Title Case)}
+\title{misha.ext: A home to functions that extend the misha package}
 \description{
-What the package does (one paragraph).
+A home to functions that extend the misha package
 }
 \author{
 \strong{Maintainer}: Aviezer Lifshitz \email{aviezer.lifshitz@weizmann.ac.il}

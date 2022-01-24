@@ -1,6 +1,6 @@
 Package: misha.ext
 Title: A home to functions that extend the misha package
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     person(given = "Aviezer",
            family = "Lifshitz",
@@ -25,5 +25,8 @@ Imports:
     tibble,
     tidyr,
     magrittr,
-    stringi
+    stringr,
+    stringi,
+    progress,
+    withr
 Remotes: tanaylab/misha, tanaylab/tgutil, tanaylab/tgconfig

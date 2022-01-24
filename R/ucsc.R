@@ -12,7 +12,6 @@
 #' @param ... list of additional attributes such as group or priority. See: https://genome.ucsc.edu/goldenPath/help/customTrack.html
 #'
 #' @examples
-#' 
 #' \dontrun{
 #' gset_genome("mm9")
 #' intervals <- gintervals(1, c(3025716, 3052742, 3181668), c(3026216, 3053242, 3182168))
