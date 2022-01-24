@@ -4,7 +4,13 @@
 \alias{gseq.create_track}
 \title{Create sequence tracks for misha database}
 \usage{
-gseq.create_track(s, track, strand = 1, res = NULL)
+gseq.create_track(
+  s,
+  track,
+  strand = 1,
+  res = NULL,
+  intervals = gintervals.all()
+)
 }
 \arguments{
 \item{s}{sequence to look for. can be a regex.}
@@ -12,9 +18,11 @@ gseq.create_track(s, track, strand = 1, res = NULL)
 \item{track}{name of the track to create}
 
 \item{strand}{strand of the sequences}
+
+\item{intervals}{intervals set}
 }
 \description{
-Create tracks based on the presence of specific sequences
+Create tracks based on the presence of specific sequences.
 }
 \examples{
 \dontrun{
