@@ -1,12 +1,13 @@
 
 #' Create sequence tracks for misha database
 #'
-#' Create tracks based on the presence of specific sequences. 
-#' 
+#' Create tracks based on the presence of specific sequences.
+#'
 #'
 #' @param s sequence to look for. can be a regex.
 #' @param track name of the track to create
 #' @param strand strand of the sequences
+#' @param intervals intervals set
 #'
 #' @examples
 #' \dontrun{
@@ -16,8 +17,8 @@
 #' gseq.create_track("[GC]", "seq.G_or_C") # C or G (for GC content calculations)
 #' }
 #' @export
-gseq.create_track <- function(s, track, strand = 1, res = NULL) {
-    intervs <- giterator.intervals(iterator = getOption("gmax.data.size") - 1)
+gseq.create_track <- function(s, track, strand = 1, res = NULL, intervals = gintervals.all()) {
+    intervs <- giterator.intervals(iterator = getOption("gmax.data.size") - 1, intervals = intervals)
 
     pb <- progress::progress_bar$new(total = nrow(intervs), format = "[:bar] :current/:total (:percent)")
 
