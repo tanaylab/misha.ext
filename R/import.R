@@ -31,3 +31,22 @@ gtrack.import_mappedseq_bam <- function(bam_files, min_mapq = NULL, ...) {
         finally = system(glue("rm -f {tmp_fifo}"))
     )
 }
+
+#' Create directories needed for track creation
+#'
+#' @param track
+#'
+#' @inheritParams misha::gdir.create
+#' @examples
+#' \dontrun{
+#' gtrack.create_dirs("proj.sample.my_track")
+#' }
+#'
+#' @export
+gtrack.create_dirs <- function(track, showWarnings = TRUE, mode = "0777") {
+    gdir.create(
+        dirname(gsub("\\.", "/", track)),
+        showWarnings = showWarnings,
+        mode = mode
+    )
+}
