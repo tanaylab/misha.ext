@@ -15,11 +15,12 @@ fwrite_ucsc(
   append = FALSE,
   sparse = TRUE,
   span = NULL,
+  categories = NULL,
   ...
 )
 }
 \arguments{
-\item{intervals}{misha intervals set. Can have an additional 'name' and 'score' fields.}
+\item{intervals}{misha intervals set. Can have an additional 'name' and 'score' fields. When 'type' equals to 'barChart', the intervals should have also a 'strand', 'category' and 'name2' fields.}
 
 \item{file}{name of the output file}
 
@@ -36,6 +37,8 @@ fwrite_ucsc(
 \item{append}{append to an existing file}
 
 \item{span}{span parameter for \code{type = "wig"}}
+
+\item{categories}{categories order for 'barChart' type}
 
 \item{...}{list of additional attributes such as group or priority. See: https://genome.ucsc.edu/goldenPath/help/customTrack.html}
 }
