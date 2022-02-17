@@ -1,6 +1,6 @@
 #' Write USCS genome browser file from intervals set data frame
 #'
-#' @param intervals misha intervals set. Can have an additional 'name' and 'score' fields.
+#' @param intervals misha intervals set. Can have an additional 'name' and 'score' fields. When 'type' equals to 'barChart', the intervals should have also a 'strand', 'category' and 'name2' fields.
 #' @param file name of the output file
 #' @param name track name
 #' @param description track description
@@ -9,6 +9,7 @@
 #' @param append append to an existing file
 #' @param rm_intervalID remove intervalID column from `intervals`
 #' @param span span parameter for \code{type = "wig"}
+#' @param categories categories order for 'barChart' type
 #' @param ... list of additional attributes such as group or priority. See: https://genome.ucsc.edu/goldenPath/help/customTrack.html
 #'
 #' @examples
@@ -23,7 +24,7 @@
 #' }
 #'
 #' @export
-fwrite_ucsc <- function(intervals, file, name, type = NULL, description = "", color = "black", rm_intervalID = TRUE, append = FALSE, sparse = TRUE, span = NULL, ...) {
+fwrite_ucsc <- function(intervals, file, name, type = NULL, description = "", color = "black", rm_intervalID = TRUE, append = FALSE, sparse = TRUE, span = NULL, categories = NULL, ...) {
     color <- paste0(grDevices::col2rgb(color)[, 1], collapse = ",")
     header <- paste0("track ", glue("name={name} description=\"{description}\" color={color}"))
 
@@ -65,6 +66,31 @@ fwrite_ucsc <- function(intervals, file, name, type = NULL, description = "", co
         }
         write(header, file, append = FALSE)
         write_wig(data1, file, span = span)
+    } else if (!is.null(type) && type == "barChart") {
+        categories <- categories %||% unique(intervals$category)
+        header <- paste(header, glue("barChartBars=\"{paste(categories, collapse = ' ')}\""))
+
+        data1 <- intervals %>%
+            mutate(category = factor(category, levels = categories)) %>%
+            mutate(score = as.character(score)) %>%
+            tidyr::complete(nesting(chrom, start, end, strand, name, name2, category), fill = list(score = "")) %>%
+            arrange(chrom, start, end, category) %>%
+            group_by(chrom, start, end, strand, name, name2) %>%
+            summarise(expScores = paste(score, collapse = ",")) %>%
+            ungroup()
+        
+        data1 <- data1 %>%
+            mutate(start = start + 1, end = end + 1) %>%
+            arrange(chrom, start) %>%
+            mutate(strand = ifelse(strand == 1, "+", "-")) %>%
+            mutate(score = 999, expCount = length(categories)) %>%
+            rename(chromStart = start, chromEnd = end) %>%
+            select(chrom, chromStart, chromEnd, name, score, strand, name2, expCount, expScores, everything()) %>%
+            rename("#chrom" = chrom, "string name" = name) %>%
+            mutate(`_dataOffset` = 0, `_dataLen` = 0)
+
+
+        fwrite_header(data1, file = file, header = header, sep = "\t", quote = FALSE, append = append)
     } else {
         data1 <- data1 %>%
             mutate(start = start + 1, end = end + 1) %>%
