@@ -55,6 +55,7 @@
   append <span class="op">=</span> <span class="cn">FALSE</span>,
   sparse <span class="op">=</span> <span class="cn">TRUE</span>,
   span <span class="op">=</span> <span class="cn">NULL</span>,
+  categories <span class="op">=</span> <span class="cn">NULL</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
     </div>
@@ -62,7 +63,7 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>intervals</dt>
-<dd><p>misha intervals set. Can have an additional 'name' and 'score' fields.</p></dd>
+<dd><p>misha intervals set. Can have an additional 'name' and 'score' fields. When 'type' equals to 'barChart', the intervals should have also a 'strand', 'category' and 'name2' fields.</p></dd>
 <dt>file</dt>
 <dd><p>name of the output file</p></dd>
 <dt>name</dt>
@@ -79,6 +80,8 @@
 <dd><p>append to an existing file</p></dd>
 <dt>span</dt>
 <dd><p>span parameter for <code>type = "wig"</code></p></dd>
+<dt>categories</dt>
+<dd><p>categories order for 'barChart' type</p></dd>
 <dt>...</dt>
 <dd><p>list of additional attributes such as group or priority. See: https://genome.ucsc.edu/goldenPath/help/customTrack.html</p></dd>
 </dl></div>
