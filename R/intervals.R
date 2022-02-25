@@ -95,3 +95,7 @@ convert_10x_rownames_to_misha_intervals = function(rn) {
     intervals = intervals[with(intervals, order(chrom, start)),]
     return(intervals)
 }
+
+convert_misha_intervals_to_10x_rownames = function(ints) {
+    return(gsub(' ', '', apply(ints, 1, paste0, collapse = '-'))
+}
