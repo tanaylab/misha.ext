@@ -87,3 +87,11 @@ get_promoters <- function(upstream = 500, downstream = 50) {
         mutate(start = ifelse(strand == 1, start - upstream, start - downstream), end = ifelse(strand == 1, end + downstream, end + upstream)) %>%
         gintervals.force_range()
 }
+
+convert_10x_rownames_to_misha_intervals = function(rn) {
+    intervals = as.data.frame(do.call('rbind', stringr::str_split(rn, '-')))
+    intervals[,2:3] = apply(intervals[,2:3], 2, as.numeric)
+    colnames(intervals) = c('chrom', 'start', 'end')
+    intervals = intervals[with(intervals, order(chrom, start)),]
+    return(intervals)
+}
