@@ -97,5 +97,9 @@ convert_10x_rownames_to_misha_intervals = function(rn) {
 }
 
 convert_misha_intervals_to_10x_rownames = function(ints) {
-    return(gsub(' ', '', apply(ints, 1, paste0, collapse = '-'))
+    if (!all(c('chrom', 'start', 'end') %in% colnames(ints))) {
+        stop('intervals are not standard misha intervals, 
+            should be data frame with columns "chrom", "start", "end")')
+    }
+    return(gsub(' ', '', apply(ints[,c('chrom', 'start', 'end')], 1, paste0, collapse = '-'))
 }
