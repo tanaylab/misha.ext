@@ -15,11 +15,12 @@ fwrite_ucsc(
   append = FALSE,
   sparse = TRUE,
   span = NULL,
+  categories = NULL,
   ...
 )
 }
 \arguments{
-\item{intervals}{misha intervals set. Can have an additional 'name' and 'score' fields.}
+\item{intervals}{misha intervals set. Can have an additional 'name' and 'score' fields. When 'type' equals to 'barChart', the intervals should have also a 'strand', 'category' and 'name2' fields.}
 
 \item{file}{name of the output file}
 
@@ -37,6 +38,8 @@ fwrite_ucsc(
 
 \item{span}{span parameter for \code{type = "wig"}}
 
+\item{categories}{categories order for 'barChart' type}
+
 \item{...}{list of additional attributes such as group or priority. See: https://genome.ucsc.edu/goldenPath/help/customTrack.html}
 }
 \description{
@@ -44,9 +47,13 @@ Write USCS genome browser file from intervals set data frame
 }
 \examples{
 \dontrun{
-fwrite_ucsc(d, "out.ucsc", type = "broadPeak", color = "red")
-fwrite_ucsc(d1, "out.ucsc", type = "broadPeak", color = "blue", append = TRUE)
-fwrite_ucsc(d1, "out.ucsc", type = "broadPeak", color = "green", append = TRUE, list(visibility = 3, offset = 15))
+gset_genome("mm9")
+intervals <- gintervals(1, c(3025716, 3052742, 3181668), c(3026216, 3053242, 3182168))
+intervals$score <- c(0.2, 0.5, 1)
+fwrite_ucsc(intervals, "out.ucsc", name = "clust1", type = "bedGraph", graphType = "bar", color = "red", viewLimits = "0:1", autoScale = "off")
+intevals2 <- gintervals(1, c(3671488, 3903482, 3943609), c(3671988, 3903982, 3944109))
+intevals2$score <- c(1, 0.2, 0.45)
+fwrite_ucsc(intervals2, "out.ucsc", name = "clust2", type = "bedGraph", graphType = "bar", color = "blue", viewLimits = "0:1", autoScale = "off", append = TRUE)
 }
 
 }
