@@ -1,12 +1,12 @@
 Package: misha.ext
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: A home to functions that extend the misha package
+Version: 0.0.2
 Authors@R: 
     person(given = "Aviezer",
            family = "Lifshitz",
            role = c("aut", "cre"),
            email = "aviezer.lifshitz@weizmann.ac.il")
-Description: What the package does (one paragraph).
+Description: A home to functions that extend the misha package
 License: MIT + file LICENSE
 Suggests: 
     testthat
@@ -14,7 +14,7 @@ Encoding: UTF-8
 Language: es
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Imports: 
     tgutil,
     tgconfig,
@@ -25,5 +25,8 @@ Imports:
     tibble,
     tidyr,
     magrittr,
-    stringi
+    stringr,
+    stringi,
+    progress,
+    withr
 Remotes: tanaylab/misha, tanaylab/tgutil, tanaylab/tgconfig
