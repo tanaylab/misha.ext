@@ -1,4 +1,5 @@
 #'
+#' @export
 #' @rdname  gset_genome
 find_params_yaml <- function() {
     if (file.exists(".misha.yaml")) {
@@ -48,7 +49,7 @@ gset_genome <- function(genome, params_yaml = find_params_yaml()) {
 get_genome <- function(genome, params_yaml) {
     init_config(params_yaml)
     genomes <- tgconfig::get_param("genome", package = "misha.ext")
-    groot <- genomes[[genome]]    
+    groot <- genomes[[genome]]
     return(groot)
 }
 
