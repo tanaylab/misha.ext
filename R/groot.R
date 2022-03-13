@@ -11,13 +11,19 @@ find_params_yaml <- function() {
         return(home_dir_yaml)
     }
 
-    if (!is.null(Sys.getenv("MISHA_GENOMES"))) {
-        return(Sys.getenv("MISHA_GENOMES"))
+    env_var <- Sys.getenv("MISHA_GENOMES")
+    if (!is.null(env_var) && env_var != "") {
+        return(env_var)
     }
 
-    file.copy(system.file("config", "misha_params.yaml", package = "misha.ext"), to = home_dir_yaml)
-    message(glue("{home_dir_yaml} does not exist.\nAn empty template was created, please edit it and reload the package.\n"))
-    return(NULL)
+    answer <- utils::menu(c("Yes", "No"), title = glue::glue("{home_dir_yaml} does not exist. Would you like to create it?"))
+    if (answer == 1) {
+        file.copy(system.file("config", "misha_params.yaml", package = "misha.ext"), to = home_dir_yaml)
+        message(glue("An empty template was created at {home_dir_yaml}, please edit it and rerun the function\n"))
+        return(home_dir_yaml)
+    } 
+    
+    stop(glue("Please create a file called {home_dir_yaml}, or set the environment variable MISHA_GENOMES to the path of such file."))
 }
 
 init_config <- function(params_yaml) {
