@@ -16,13 +16,18 @@ find_params_yaml <- function() {
         return(env_var)
     }
 
-    answer <- utils::menu(c("Yes", "No"), title = glue::glue("{home_dir_yaml} does not exist. Would you like to create it?"))
+    if (!interactive()) {
+        answer <- 1
+    } else {
+        answer <- utils::menu(c("Yes", "No"), title = glue::glue("{home_dir_yaml} does not exist. Would you like to create it?"))
+    }
+
     if (answer == 1) {
         file.copy(system.file("config", "misha_params.yaml", package = "misha.ext"), to = home_dir_yaml)
         message(glue("An empty template was created at {home_dir_yaml}, please edit it and rerun the function\n"))
         return(home_dir_yaml)
-    } 
-    
+    }
+
     stop(glue("Please create a file called {home_dir_yaml}, or set the environment variable MISHA_GENOMES to the path of such file."))
 }
 
