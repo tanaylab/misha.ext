@@ -87,3 +87,69 @@ get_promoters <- function(upstream = 500, downstream = 50) {
         mutate(start = ifelse(strand == 1, start - upstream, start - downstream), end = ifelse(strand == 1, end + downstream, end + upstream)) %>%
         gintervals.force_range()
 }
+
+#' Calculate the centers of intervals set
+#'
+#' @param inv intervals set
+#'
+#' @return a single basepair intervals set with the center of each interval
+#'
+#' @export
+gintervals.centers <- function(inv) {
+    inv %>%
+        mutate(center = floor((start + end) / 2), start = center, end = center + 1) %>%
+        select(-center)
+}
+
+#' Exapnd an intervals set
+#'
+#' @param inv intervals set
+#' @param expansion number of bp to add from each side
+#'
+#' @return intervals set expanded by \code{expansion} bp, where intervals outside of the
+#' chromosome boundries are truncated
+#'
+#' @export
+gintervals.expand <- function(inv, expansion = 100) {
+    if (is.character(inv)) {
+        inv <- gintervals.load(inv)
+    }
+    inv %>%
+        mutate(start = start - expansion, end = end + expansion) %>%
+        as.data.frame() %>%
+        gintervals.force_range()
+}
+
+#' Normalize an intervals set to be of the same length
+#'
+#' @param inv intervals set
+#' @param size desired length of the intervals
+#'
+#' @return The normalized intervals set
+#'
+#' @description The function adds \code{floor(size / 2)} bp for each side from each
+#' interval's center
+#'
+#'
+#' @export
+gintervals.normalize <- function(inv, size) {
+    centers <- gintervals.centers(inv) %>%
+        mutate(end = end - 1)
+    return(gintervals.expand(centers, floor(size / 2)))
+}
+
+#' Calculate pairwise distance between interval sets
+#'
+#' @param intervals1 first intervals set
+#' @param intervals2 first intervals set (should be the same length as \code{intervals1})
+#'
+#' @return a vector containing for each i..N the distance between each interval1[i] and intervals2[i], where N is the number
+#' of intervals
+#'
+#' @export
+gintervals.distance <- function(intervals1, intervals2) {
+    if (nrow(intervals1) != nrow(intervals2)) {
+        stop("intervals1 and intervals2 should have the same length")
+    }
+    return(pmax(pmax(intervals1$start, intervals2$start) - pmin(intervals1$end, intervals2$end), 0))
+}
