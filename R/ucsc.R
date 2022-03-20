@@ -78,7 +78,7 @@ fwrite_ucsc <- function(intervals, file, name, type = NULL, description = "", co
             group_by(chrom, start, end, strand, name, name2) %>%
             summarise(expScores = paste(score, collapse = ",")) %>%
             ungroup()
-        
+
         data1 <- data1 %>%
             mutate(start = start + 1, end = end + 1) %>%
             arrange(chrom, start) %>%
