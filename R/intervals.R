@@ -98,12 +98,14 @@ get_promoters <- function(upstream = 500, downstream = 50) {
 #' my_intervals <- convert_10x_peak_names_to_misha_intervals(pn)
 #' }
 #' @export
-convert_10x_peak_names_to_misha_intervals = function(pn, add_intervalID = FALSE) {
-    intervals = as.data.frame(do.call('rbind', stringr::str_split(pn, '-|:')))
-    intervals[,2:3] = apply(intervals[,2:3], 2, as.numeric)
-    colnames(intervals) = c('chrom', 'start', 'end')
-    if (add_intervalID) {intervals$intervalID = 1:nrow(intervals)}
-    intervals = intervals[with(intervals, order(chrom, start)),]
+convert_10x_peak_names_to_misha_intervals <- function(pn, add_intervalID = FALSE) {
+    intervals <- as.data.frame(do.call("rbind", stringr::str_split(pn, "-|:")))
+    intervals[, 2:3] <- apply(intervals[, 2:3], 2, as.numeric)
+    colnames(intervals) <- c("chrom", "start", "end")
+    if (add_intervalID) {
+        intervals$intervalID <- 1:nrow(intervals)
+    }
+    intervals <- intervals[with(intervals, order(chrom, start)), ]
     return(intervals)
 }
 
@@ -116,11 +118,11 @@ convert_10x_peak_names_to_misha_intervals = function(pn, add_intervalID = FALSE)
 #' ints_pn <- convert_misha_intervals_to_10x_peak_names(ints)
 #' }
 #' @export
-convert_misha_intervals_to_10x_peak_names = function(ints) {
-    if (!all(c('chrom', 'start', 'end') %in% colnames(ints))) {
-        stop('intervals are not standard misha intervals, 
+convert_misha_intervals_to_10x_peak_names <- function(ints) {
+    if (!all(c("chrom", "start", "end") %in% colnames(ints))) {
+        stop('intervals are not standard misha intervals,
             should be data frame with columns "chrom", "start", "end")')
     }
-    pn = gsub(' ', '', apply(ints[,c('chrom', 'start', 'end')], 1, paste0, collapse = '-'))
+    pn <- gsub(" ", "", apply(ints[, c("chrom", "start", "end")], 1, paste0, collapse = "-"))
     return(pn)
 }

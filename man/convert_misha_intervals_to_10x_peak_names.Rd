@@ -9,6 +9,15 @@ convert_misha_intervals_to_10x_peak_names(ints)
 \arguments{
 \item{ints}{misha intervals - dataframe with columns "chrom" (character), "start" (numeric), "end" (numeric)}
 }
+\value{
+pn - peak names, collapsed with hyphens
+}
 \description{
 Convert misha intervals to 10X-format peak names
+}
+\examples{
+\dontrun{
+ints <- my_mcatac_object@peaks
+ints_pn <- convert_misha_intervals_to_10x_peak_names(ints)
+}
 }
