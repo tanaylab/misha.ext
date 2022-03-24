@@ -98,13 +98,11 @@ get_promoters <- function(upstream = 500, downstream = 50) {
 #' my_intervals <- convert_10x_peak_names_to_misha_intervals(pn)
 #' }
 #' @export
-convert_10x_peak_names_to_misha_intervals <- function(pn, add_intervalID = FALSE) {
+convert_10x_peak_names_to_misha_intervals <- function(pn) {
     intervals <- as.data.frame(do.call("rbind", stringr::str_split(pn, "-|:")))
     intervals[, 2:3] <- apply(intervals[, 2:3], 2, as.numeric)
     colnames(intervals) <- c("chrom", "start", "end")
-    if (add_intervalID) {
-        intervals$intervalID <- 1:nrow(intervals)
-    }
+    intervals$peak_name <- pn
     intervals <- intervals[with(intervals, order(chrom, start)), ]
     return(intervals)
 }
