@@ -4,12 +4,18 @@
 \alias{get_promoters}
 \title{Define promoter regions}
 \usage{
-get_promoters(upstream = 500, downstream = 50)
+get_promoters(
+  upstream = 500,
+  downstream = 50,
+  tss_intervals = "intervs.global.tss"
+)
 }
 \arguments{
 \item{upstream}{bp upstream to TSS}
 
 \item{downstream}{bp downstread from tss}
+
+\item{tss_intervals}{name of the intervals set with the TSS}
 }
 \description{
 Define promoter regions
