@@ -10,7 +10,8 @@ gintervals.neighbors1(
   maxneighbors = 1,
   mindist = -1e+09,
   maxdist = 1e+09,
-  na.if.notfound = TRUE
+  na.if.notfound = TRUE,
+  fields = NULL
 )
 }
 \arguments{
@@ -25,6 +26,9 @@ gintervals.neighbors1(
 \item{maxdist}{distance range for 1D intervals}
 
 \item{na.if.notfound}{if 'TRUE' return 'NA' interval if no matching neighbors were found, otherwise omit the interval in the answer}
+
+\item{fields}{select only these fields from \code{intervals2}. Note that when there are conflicting
+names - the repaired name should be used, see \code{tibble::repair_names}.}
 }
 \value{
 

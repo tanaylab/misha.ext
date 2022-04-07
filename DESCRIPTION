@@ -1,6 +1,6 @@
 Package: misha.ext
 Title: A home to functions that extend the misha package
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: 
     person(given = "Aviezer",
            family = "Lifshitz",
