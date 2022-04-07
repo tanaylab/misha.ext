@@ -1,5 +1,8 @@
 #' Finds neighbors between two sets of intervals (and does not return conflicting column names)
 #'
+#' @param fields select only these fields from \code{intervals2}. Note that when there are conflicting
+#' names - the repaired name should be used, see \code{tibble::repair_names}.
+#'
 #' @inheritParams misha::gintervals.neighbors
 #'
 #' @return
@@ -10,7 +13,8 @@ gintervals.neighbors1 <- function(intervals1 = NULL,
                                   maxneighbors = 1,
                                   mindist = -1e+09,
                                   maxdist = 1e+09,
-                                  na.if.notfound = TRUE) {
+                                  na.if.notfound = TRUE,
+                                  fields = NULL) {
     res <-
         gintervals.neighbors(
             intervals1 = intervals1,
@@ -21,6 +25,11 @@ gintervals.neighbors1 <- function(intervals1 = NULL,
             na.if.notfound = na.if.notfound
         ) %>%
         tibble::repair_names()
+
+    if (!is.null(fields)) {
+        res <- res %>%
+            select(any_of(colnames(intervals1)), fields, starts_with("dist"))
+    }
 
     return(res %>% as_tibble())
 }
