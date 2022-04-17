@@ -131,7 +131,7 @@ convert_misha_intervals_to_10x_peak_names <- function(ints) {
         stop('intervals are not standard misha intervals,
             should be data frame with columns "chrom", "start", "end")')
     }
-    pn <- gsub(" ", "", apply(ints[, c("chrom", "start", "end")], 1, paste0, collapse = "-"))
+    pn <- stringr::str_c(ints$chrom, ":", ints$start, "-", ints$end)
     return(pn)
 }
 
