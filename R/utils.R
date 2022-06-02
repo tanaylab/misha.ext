@@ -58,7 +58,9 @@ intervs_to_mat <- function(df) {
         tibble::remove_rownames() %>%
         tibble::column_to_rownames("coord") %>%
         as.matrix()
-
+    if ("intervalID" %in% colnames(mat)) {
+        mat <- mat[,-grep("intervalID", colnames(mat))]
+    }
     return(mat)
 }
 
@@ -76,6 +78,5 @@ mat_to_intervs <- function(mat) {
         tibble::rownames_to_column("coord") %>%
         tidyr::separate(coord, c("chrom", "start", "end"), sep = "_") %>%
         mutate(start = as.numeric(start), end = as.numeric(end))
-
     return(df)
 }
