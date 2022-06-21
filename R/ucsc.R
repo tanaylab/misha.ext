@@ -73,7 +73,7 @@ fwrite_ucsc <- function(intervals, file, name, type = NULL, description = "", co
         data1 <- intervals %>%
             mutate(category = factor(category, levels = categories)) %>%
             mutate(score = as.character(score)) %>%
-            tidyr::complete(category, nesting(chrom, start, end, strand, name, name2),, fill = list(score = "")) %>%
+            tidyr::complete(category, nesting(chrom, start, end, strand, name, name2), , fill = list(score = "")) %>%
             arrange(chrom, start, end, category) %>%
             group_by(chrom, start, end, strand, name, name2) %>%
             summarise(expScores = paste(score, collapse = ",")) %>%
