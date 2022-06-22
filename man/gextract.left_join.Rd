@@ -33,9 +33,6 @@ gextract.left_join(
 
 \item{suffix}{suffix for conflicting column names}
 }
-\value{
-
-}
 \description{
 Returns the result of track expressions evaluation for each of the
 iterator intervals, and cbinds the intervals (instead of intervalID)

@@ -27,9 +27,6 @@ gintervals.filter(
 
 \item{...}{additional parameters to gintervals.neighbours1}
 }
-\value{
-
-}
 \description{
 Filter intervals set by distance to another.
 A wrapper around gintervals.neighbours and filter(dist <= max_distance)

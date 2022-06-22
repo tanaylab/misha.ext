@@ -27,22 +27,11 @@ fwrite_header <- function(data, file, header, sep = ",", col_names = FALSE, appe
     fwrite(data, file, sep = sep, append = TRUE, col.names = FALSE, row.names = FALSE, scipen = scipen, ...)
 }
 
+#' @export
+tgutil::psum
 
-psum <- function(..., na.rm = FALSE) {
-    dat <- do.call(cbind, list(...))
-    res <- rowSums(dat, na.rm = na.rm)
-    idx_na <- !rowSums(!is.na(dat))
-    res[idx_na] <- NA
-    return(res)
-}
-
-pmean <- function(..., na.rm = FALSE) {
-    dat <- do.call(cbind, list(...))
-    res <- rowMeans(dat, na.rm = na.rm)
-    idx_na <- !rowMeans(!is.na(dat))
-    res[idx_na] <- NA
-    return(res)
-}
+#' @export
+tgutil::pmean
 
 #' Transform an intervals set to matrix
 #'
