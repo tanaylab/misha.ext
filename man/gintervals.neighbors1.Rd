@@ -15,23 +15,16 @@ gintervals.neighbors1(
 )
 }
 \arguments{
-\item{intervals1}{intervals}
-
-\item{intervals2}{intervals}
+\item{intervals1, intervals2}{intervals}
 
 \item{maxneighbors}{maximal number of neighbors}
 
-\item{mindist}{distance range for 1D intervals}
-
-\item{maxdist}{distance range for 1D intervals}
+\item{mindist, maxdist}{distance range for 1D intervals}
 
 \item{na.if.notfound}{if 'TRUE' return 'NA' interval if no matching neighbors were found, otherwise omit the interval in the answer}
 
 \item{fields}{select only these fields from \code{intervals2}. Note that when there are conflicting
 names - the repaired name should be used, see \code{tibble::repair_names}.}
-}
-\value{
-
 }
 \description{
 Finds neighbors between two sets of intervals (and does not return conflicting column names)
