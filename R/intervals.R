@@ -5,9 +5,10 @@
 #'
 #' @inheritParams misha::gintervals.neighbors
 #'
-#' @return
+#' @return a data frame containing the pairs of intervals from 'intervals1', intervals from 'intervals2' (with a suffix of '1', i.e. chrom1, start1 and end1), and an additional column named 'dist' ('dist1' and 'dist2' for 2D intervals) representing the distance between the corresponding intervals.
+#'
 #' @export
-#' @seealso \link[misha]{gintrevals.neighbors}
+#' @seealso \link[misha]{gintervals.neighbors}
 gintervals.neighbors1 <- function(intervals1 = NULL,
                                   intervals2 = NULL,
                                   maxneighbors = 1,
@@ -45,7 +46,7 @@ gintervals.neighbors1 <- function(intervals1 = NULL,
 #' @param bind_intervals2 cbind add intervals2 to result
 #' @param ... additional parameters to gintervals.neighbours1
 #'
-#' @return
+#' @return \code{intervals1} filtered to only intervals that are closer than \code{max_distance} to intervals2.
 #' @export
 gintervals.filter <- function(intervals1, intervals2, max_distance = 0, abs_dist = TRUE, bind_intervals2 = FALSE, ...) {
     intervals1_cols <- colnames(intervals1)
@@ -66,7 +67,8 @@ gintervals.filter <- function(intervals1, intervals2, max_distance = 0, abs_dist
 #' @inheritParams misha::gextract
 #' @param suffix suffix for conflicting column names
 #'
-#' @return
+#' @return The result of 'gextract' with additional columns from \code{intervals}
+#'
 #' @export
 #'
 #' @seealso \link[misha]{gextract}

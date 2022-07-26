@@ -23,6 +23,9 @@ gtrack.import_mappedseq_bam(bam_files, min_mapq = NULL, ...)
     \item{\code{remove.dups}}{if 'TRUE' the duplicated coordinates are counted only once.}
   }}
 }
+\value{
+None
+}
 \description{
 Wrapper around gtrack.import_mappedseq for (multiple) bam files
 }

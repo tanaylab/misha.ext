@@ -4,7 +4,8 @@
 #' @param min_mapq skip alignments with MAPQ smaller than \code{min_mapq}
 #' @param ... parameters of gtrack.import_mappedseq
 #'
-#' @return
+#' @return None
+#'
 #' @export
 #' @inheritDotParams misha::gtrack.import_mappedseq
 #' @seealso \link[misha]{gtrack.import_mappedseq}
