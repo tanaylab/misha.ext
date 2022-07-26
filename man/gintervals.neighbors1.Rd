@@ -26,9 +26,12 @@ gintervals.neighbors1(
 \item{fields}{select only these fields from \code{intervals2}. Note that when there are conflicting
 names - the repaired name should be used, see \code{tibble::repair_names}.}
 }
+\value{
+a data frame containing the pairs of intervals from 'intervals1', intervals from 'intervals2' (with a suffix of '1', i.e. chrom1, start1 and end1), and an additional column named 'dist' ('dist1' and 'dist2' for 2D intervals) representing the distance between the corresponding intervals.
+}
 \description{
 Finds neighbors between two sets of intervals (and does not return conflicting column names)
 }
 \seealso{
-\link[misha]{gintrevals.neighbors}
+\link[misha]{gintervals.neighbors}
 }

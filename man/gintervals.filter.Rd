@@ -27,6 +27,9 @@ gintervals.filter(
 
 \item{...}{additional parameters to gintervals.neighbours1}
 }
+\value{
+\code{intervals1} filtered to only intervals that are closer than \code{max_distance} to intervals2.
+}
 \description{
 Filter intervals set by distance to another.
 A wrapper around gintervals.neighbours and filter(dist <= max_distance)
