@@ -30,5 +30,13 @@ gseq.create_track("C", "seq.C")
 gseq.create_track("T", "seq.T")
 gseq.create_track("CG", "seq.CG") # genome CpGs
 gseq.create_track("[GC]", "seq.G_or_C") # C or G (for GC content calculations)
+
+# create all dinucleotide tracks
+dinucs <- expand.grid(c("T", "C", "G", "A"), c("T", "C", "G", "A"))
+dinucs <- apply(dinucs, 1, paste, collapse = "")
+for (dinuc in dinucs) {
+    message(dinuc)
+    gseq.create_track(dinuc, paste0("seq.", dinuc))
+}
 }
 }
