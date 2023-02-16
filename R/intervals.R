@@ -203,3 +203,61 @@ gintervals.distance <- function(intervals1, intervals2) {
     }
     return(pmax(pmax(intervals1$start, intervals2$start) - pmin(intervals1$end, intervals2$end), 0))
 }
+
+#' Generate random genome intervals
+#'
+#' Generate a random genome intervals with a specified number of regions of a specified size.
+#'
+#' @param size The size of the intervals to generate
+#' @param n The number of intervals to generate
+#' @param dist_from_edge The minimum distance from the edge of the chromosome for a region to start or end(default: 3e6)
+#' @param chromosomes The chromosomes to sample from (default: all chromosomes)
+#'
+#' @return A data.frame with columns chrom, start, and end
+#'
+#' @examples
+#' \dontrun{
+#' library(misha)
+#' gdb.init_examples()
+#' intervals <- grandom_genome(100, 1000, dist_from_edge = 100)
+#' head(intervals)
+#' }
+#'
+#' @export
+grandom_genome <- function(size, n, dist_from_edge = 3e6, chromosomes = NULL) {
+    all_genome <- misha::gintervals.all()
+    if (!is.null(chromosomes)) {
+        all_genome <- all_genome %>% filter(chrom %in% chromosomes)
+        if (nrow(all_genome) == 0) {
+            cli_abort("No chromosomes named {.val {chromosomes}} found in the genome.")
+        }
+    }
+
+    all_genome <- all_genome %>%
+        mutate(l = end - start, frac = l / sum(l))
+
+    if (any(all_genome$l < size)) {
+        cli_abort("Some chromosomes are too short to generate intervals of size {.val {size}}.")
+    }
+
+    if (any(all_genome$l < dist_from_edge)) {
+        cli_abort("Some chromosomes are too short to generate intervals with a minimum distance from the edge of {.val {dist_from_edge}}.")
+    }
+
+    chroms <- sample(all_genome$chrom, n, replace = TRUE, prob = all_genome$frac)
+    res <- data.frame(chrom = chroms)
+
+    res <- plyr::ddply(res, "chrom", function(x) {
+        chrom_len <- all_genome %>%
+            filter(chrom == x$chrom[1]) %>%
+            pull(l)
+        starts <- sample.int(chrom_len - dist_from_edge - size, nrow(x), replace = FALSE)
+        starts[starts < dist_from_edge] <- dist_from_edge
+        ends <- starts + size
+        data.frame(start = starts, end = ends)
+    })
+
+    res <- misha::gintervals.force_range(res)
+
+    return(res)
+}

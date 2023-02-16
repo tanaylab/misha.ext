@@ -15,9 +15,21 @@
 #' gseq.create_track("T", "seq.T")
 #' gseq.create_track("CG", "seq.CG") # genome CpGs
 #' gseq.create_track("[GC]", "seq.G_or_C") # C or G (for GC content calculations)
+#'
+#' # create all dinucleotide tracks
+#' dinucs <- expand.grid(c("T", "C", "G", "A"), c("T", "C", "G", "A"))
+#' dinucs <- apply(dinucs, 1, paste, collapse = "")
+#' for (dinuc in dinucs) {
+#'     message(dinuc)
+#'     gseq.create_track(dinuc, paste0("seq.", dinuc))
+#' }
 #' }
 #' @export
 gseq.create_track <- function(s, track, strand = 1, res = NULL, intervals = gintervals.all()) {
+    if (is.null(getOption("gmax.data.size"))) {
+        options(gmax.data.size = 1000000000)
+    }
+
     intervs <- giterator.intervals(iterator = getOption("gmax.data.size") - 1, intervals = intervals)
 
     pb <- progress::progress_bar$new(total = nrow(intervs), format = "[:bar] :current/:total (:percent)")
