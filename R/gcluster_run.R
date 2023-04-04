@@ -16,6 +16,7 @@
 #' @param memory_flag flag for memory requirment (formatted as in glue)
 #' @param threads_flag flag for threads requirment (formatted as in glue)
 #' @param io_saturation_flag flag for io_saturation requirment (formatted as in glue)
+#' @param verbose verbose output
 #'
 #' @return if collapse_results is TRUE: data frame with the results of all jobs (rbinded).
 #' if collapse_results is FALSE returns the same as: \link[misha]{gcluster.run}
@@ -44,7 +45,8 @@ gcluster.run2 <- function(...,
                           threads_flag = "-pe threads {threads}",
                           io_saturation_flag = "-l io_saturation={io_saturation}",
                           num_proc_flag = "-l num_proc={num_proc}",
-                          script = system.file("bin", "sgjob.sh", package = "misha.ext")) {
+                          script = system.file("bin", "sgjob.sh", package = "misha.ext"),
+                          verbose = FALSE) {
     if (!is.null(command_list)) {
         commands <- purrr::map(command_list, function(x) parse(text = x))
     } else {
@@ -98,6 +100,10 @@ gcluster.run2 <- function(...,
                     call. = F
                 )
             }
+            if (verbose){
+                cat(paste0("Temp directory: ", tmp.dirname, "\n"))
+            }
+            
             cat("Preparing for distribution...\n")
             save(.GLIBDIR, file = paste(tmp.dirname, "libdir", sep = "/"))
             vars <- ls(all.names = TRUE, envir = parent.frame())
