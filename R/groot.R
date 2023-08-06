@@ -54,7 +54,18 @@ gset_genome <- function(genome, params_yaml = find_params_yaml()) {
     if (is.null(groot)) {
         stop("no genome named ", genome, " in params yaml")
     }
-    gsetroot(groot)
+    if(!exists("global_groots")){
+        global_groots = list()
+    }
+    if(is.null(global_groots[[genome]])){
+        gsetroot(groot)
+        global_groots[[genome]] = list(ALLGENOME=ALLGENOME, GROOT=GROOT, GWD=GWD)
+    } else {
+        assign("ALLGENOME", global_groots[[genome]][['ALLGENOME']], envir = .GlobalEnv)
+        assign("GROOT", global_groots[[genome]][['GROOT']], envir = .GlobalEnv)
+        assign("GWD", global_groots[[genome]][['GWD']], envir = .GlobalEnv)
+    }
+    assign("global_groots", global_groots, envir = .GlobalEnv)
 }
 
 get_genome <- function(genome, params_yaml) {
