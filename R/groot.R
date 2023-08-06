@@ -39,6 +39,7 @@ init_config <- function(params_yaml) {
 #'
 #' @param genome name of the genome (e.g. hg19)
 #' @param params_yaml path to .misha.yaml parameters file. By default, \code{misha.ext} would look for such file
+#' @param force force gsetroot call, overwriting exsiting memoized genome
 #' first at the current directory, then at the user's home directory, then at an environment variable called "MISHA_GENOMES"
 #' and if none of the above exist - a new file would be created at the user's home directory. You can run \code{find_params_yaml}
 #' to see the current location of your configuration file.
@@ -49,21 +50,23 @@ init_config <- function(params_yaml) {
 #' }
 #'
 #' @export
-gset_genome <- function(genome, params_yaml = find_params_yaml()) {
+gset_genome <- function(genome, params_yaml = find_params_yaml(), force=FALSE) {
     groot <- get_genome(genome, params_yaml)
     if (is.null(groot)) {
         stop("no genome named ", genome, " in params yaml")
     }
-    if(!exists("global_groots")){
+    if(!exists("global_groots", envir = .GlobalEnv)){
         global_groots = list()
     }
-    if(is.null(global_groots[[genome]])){
+    if(is.null(global_groots[[genome]]) || force){
         gsetroot(groot)
-        global_groots[[genome]] = list(ALLGENOME=ALLGENOME, GROOT=GROOT, GWD=GWD)
+        global_groots[[genome]] = list(ALLGENOME=ALLGENOME, GROOT=GROOT, GWD=GWD, GTRACKS=GTRACKS, GINTERVS=GINTERVS)
     } else {
         assign("ALLGENOME", global_groots[[genome]][['ALLGENOME']], envir = .GlobalEnv)
         assign("GROOT", global_groots[[genome]][['GROOT']], envir = .GlobalEnv)
         assign("GWD", global_groots[[genome]][['GWD']], envir = .GlobalEnv)
+        assign("GTRACKS", global_groots[[genome]][['GTRACKS']], envir = .GlobalEnv)
+        assign("GINTERVS", global_groots[[genome]][['GINTERVS']], envir = .GlobalEnv)
     }
     assign("global_groots", global_groots, envir = .GlobalEnv)
 }

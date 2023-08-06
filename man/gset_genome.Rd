@@ -7,12 +7,14 @@
 \usage{
 find_params_yaml()
 
-gset_genome(genome, params_yaml = find_params_yaml())
+gset_genome(genome, params_yaml = find_params_yaml(), force = FALSE)
 }
 \arguments{
 \item{genome}{name of the genome (e.g. hg19)}
 
-\item{params_yaml}{path to .misha.yaml parameters file. By default, \code{misha.ext} would look for such file
+\item{params_yaml}{path to .misha.yaml parameters file. By default, \code{misha.ext} would look for such file}
+
+\item{force}{force gsetroot call, overwriting exsiting memoized genome
 first at the current directory, then at the user's home directory, then at an environment variable called "MISHA_GENOMES"
 and if none of the above exist - a new file would be created at the user's home directory. You can run \code{find_params_yaml}
 to see the current location of your configuration file.}

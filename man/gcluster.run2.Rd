@@ -27,7 +27,8 @@ gcluster.run2(
   threads_flag = "-pe threads {threads}",
   io_saturation_flag = "-l io_saturation={io_saturation}",
   num_proc_flag = "-l num_proc={num_proc}",
-  script = system.file("bin", "sgjob.sh", package = "misha.ext")
+  script = system.file("bin", "sgjob.sh", package = "misha.ext"),
+  verbose = FALSE
 )
 }
 \arguments{
@@ -66,6 +67,8 @@ if not possible - would return the usual list.}
 \item{threads_flag}{flag for threads requirment (formatted as in glue)}
 
 \item{io_saturation_flag}{flag for io_saturation requirment (formatted as in glue)}
+
+\item{verbose}{verbose output}
 }
 \value{
 if collapse_results is TRUE: data frame with the results of all jobs (rbinded).
