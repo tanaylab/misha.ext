@@ -55,20 +55,20 @@ gset_genome <- function(genome, params_yaml = find_params_yaml(), force=FALSE) {
     if (is.null(groot)) {
         stop("no genome named ", genome, " in params yaml")
     }
-    if(!exists("global_groots", envir = .GlobalEnv)){
+    if(!exists("global_groots", envir = .misha)){
         global_groots = list()
     }
     if(is.null(global_groots[[genome]]) || force){
         gsetroot(groot)
-        global_groots[[genome]] = list(ALLGENOME=ALLGENOME, GROOT=GROOT, GWD=GWD, GTRACKS=GTRACKS, GINTERVS=GINTERVS)
+        global_groots[[genome]] = list(ALLGENOME=.misha$ALLGENOME, GROOT=.misha$GROOT, GWD=.misha$GWD, GTRACKS=.misha$GTRACKS, GINTERVS=.misha$GINTERVS)
     } else {
-        assign("ALLGENOME", global_groots[[genome]][['ALLGENOME']], envir = .GlobalEnv)
-        assign("GROOT", global_groots[[genome]][['GROOT']], envir = .GlobalEnv)
-        assign("GWD", global_groots[[genome]][['GWD']], envir = .GlobalEnv)
-        assign("GTRACKS", global_groots[[genome]][['GTRACKS']], envir = .GlobalEnv)
-        assign("GINTERVS", global_groots[[genome]][['GINTERVS']], envir = .GlobalEnv)
+        assign("ALLGENOME", global_groots[[genome]][['ALLGENOME']], envir = .misha)
+        assign("GROOT", global_groots[[genome]][['GROOT']], envir = .misha)
+        assign("GWD", global_groots[[genome]][['GWD']], envir = .misha)
+        assign("GTRACKS", global_groots[[genome]][['GTRACKS']], envir = .misha)
+        assign("GINTERVS", global_groots[[genome]][['GINTERVS']], envir = .misha)
     }
-    assign("global_groots", global_groots, envir = .GlobalEnv)
+    assign("global_groots", global_groots, envir = .misha)
 }
 
 get_genome <- function(genome, params_yaml) {

@@ -1,6 +1,6 @@
 Package: misha.ext
 Title: A home to functions that extend the misha package
-Version: 0.0.8
+Version: 0.0.9
 Authors@R: 
     person(given = "Aviezer",
            family = "Lifshitz",
@@ -15,10 +15,11 @@ Language: es
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Depends:
+    misha (>= 4.2.0),
 Imports: 
     tgutil,
-    tgconfig,
-    misha,
+    tgconfig,    
     dplyr,
     purrr,
     glue,
