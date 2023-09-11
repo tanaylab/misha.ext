@@ -56,7 +56,9 @@ gset_genome <- function(genome, params_yaml = find_params_yaml(), force=FALSE) {
         stop("no genome named ", genome, " in params yaml")
     }
     if(!exists("global_groots", envir = .misha)){
-        global_groots = list()
+        global_groots <- list()
+    } else {
+        global_groots <- get("global_groots", envir = .misha)
     }
     if(is.null(global_groots[[genome]]) || force){
         gsetroot(groot)
