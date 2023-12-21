@@ -4,7 +4,7 @@
 \alias{grandom_genome}
 \title{Generate random genome intervals}
 \usage{
-grandom_genome(size, n, dist_from_edge = 3e+06, chromosomes = NULL)
+grandom_genome(size, n, dist_from_edge = 3000000, chromosomes = NULL)
 }
 \arguments{
 \item{size}{The size of the intervals to generate}

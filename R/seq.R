@@ -1,4 +1,3 @@
-
 #' Create sequence tracks for misha database
 #'
 #' Create tracks based on the presence of specific sequences.

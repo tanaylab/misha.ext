@@ -17,19 +17,21 @@ gextract.left_join(
 )
 }
 \arguments{
-\item{expr}{track expression}
-
 \item{intervals}{genomic scope for which the function is applied}
 
-\item{colnames}{sets the columns names in the returned value. If 'NULL' names are set to track expression.}
+\item{colnames}{sets the columns names in the returned value. If 'NULL'
+names are set to track expression.}
 
-\item{iterator}{track expression iterator. If 'NULL' iterator is determined implicitly based on track expressions.}
+\item{iterator}{track expression iterator. If 'NULL' iterator is determined
+implicitly based on track expressions.}
 
 \item{band}{track expression band. If 'NULL' no band is used.}
 
-\item{file}{file name where the function result is optionally outputed in tab-delimited format}
+\item{file}{file name where the function result is optionally outputted in
+tab-delimited format}
 
-\item{intervals.set.out}{intervals set name where the function result is optionally outputed}
+\item{intervals.set.out}{intervals set name where the function result is
+optionally outputted}
 
 \item{suffix}{suffix for conflicting column names}
 }

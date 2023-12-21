@@ -1,4 +1,3 @@
-
 #' Extract a virtual track on each array.track column
 #'
 #' @param track array track

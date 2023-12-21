@@ -19,8 +19,10 @@ gtrack.import_mappedseq_bam(bam_files, min_mapq = NULL, ...)
     \item{\code{file}}{name of mapped sequences file}
     \item{\code{pileup}}{interval expansion}
     \item{\code{binsize}}{bin size of a dense track}
-    \item{\code{cols.order}}{order of sequece, chromosome, coordinate and strand columns in mapped sequences file or NULL if SAM file is used}
-    \item{\code{remove.dups}}{if 'TRUE' the duplicated coordinates are counted only once.}
+    \item{\code{cols.order}}{order of sequence, chromosome, coordinate and strand
+columns in mapped sequences file or NULL if SAM file is used}
+    \item{\code{remove.dups}}{if 'TRUE' the duplicated coordinates are counted only
+once.}
   }}
 }
 \value{
