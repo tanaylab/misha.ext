@@ -7,7 +7,7 @@
 \usage{
 find_params_yaml()
 
-gset_genome(genome, params_yaml = find_params_yaml(), force = FALSE)
+gset_genome(genome, params_yaml = find_params_yaml(), force = TRUE)
 }
 \arguments{
 \item{genome}{name of the genome (e.g. hg19)}

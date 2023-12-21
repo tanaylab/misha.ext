@@ -21,7 +21,8 @@ gtrack.marginal_sum(
 
 \item{description}{a character string description}
 
-\item{iterator}{track expression iterator. If 'NULL' iterator is determined implicitly based on track expression.}
+\item{iterator}{track expression iterator. If 'NULL' iterator is determined
+implicitly based on track expression.}
 }
 \value{
 None.

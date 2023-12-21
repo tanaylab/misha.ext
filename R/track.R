@@ -1,4 +1,3 @@
-
 #' Create a dense track that is a sum of misha tracks
 #'
 #' @description The function creates a dense track that is a sum of misha tracks, by first creating a virtual track for each track with a "sum" function, and then running \code{gtrack.create} with a track expression that uses \code{psum} to sum the tracks.

@@ -18,9 +18,12 @@ gvtrack.array_extract(
 
 \item{intervals}{genomic scope for which the function is applied}
 
-\item{iterator}{track expression iterator. If 'NULL' iterator is determined implicitly based on track expressions.}
+\item{iterator}{track expression iterator. If 'NULL' iterator is determined
+implicitly based on track expressions.}
 
 \item{slice}{a vector of column names or column indices or 'NULL'}
+
+\item{...}{track expression}
 }
 \description{
 Extract a virtual track on each array.track column

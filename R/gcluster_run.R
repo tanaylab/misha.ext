@@ -100,10 +100,10 @@ gcluster.run2 <- function(...,
                     call. = F
                 )
             }
-            if (verbose){
+            if (verbose) {
                 cat(paste0("Temp directory: ", tmp.dirname, "\n"))
             }
-            
+
             cat("Preparing for distribution...\n")
             save(.GLIBDIR, file = paste(tmp.dirname, "libdir", sep = "/"))
             vars <- ls(all.names = TRUE, envir = parent.frame())
