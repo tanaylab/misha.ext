@@ -47,6 +47,7 @@ gcluster.run2 <- function(...,
                           num_proc_flag = "-l num_proc={num_proc}",
                           script = system.file("bin", "sgjob.sh", package = "misha.ext"),
                           verbose = FALSE) {
+    library(misha)
     if (!is.null(command_list)) {
         commands <- purrr::map(command_list, function(x) parse(text = x))
     } else {
@@ -86,12 +87,12 @@ gcluster.run2 <- function(...,
             call. = F
         )
     }
-    .gcheckroot()
+    misha:::.gcheckroot()
     tmp.dirname <- ""
     submitted.jobs <- c()
     tryCatch(
         {
-            tmp.dirname <- tempfile(pattern = "", tmpdir = paste(get("GROOT"),
+            tmp.dirname <- tempfile(pattern = "", tmpdir = paste(get("GROOT", envir = .misha),
                 "/tmp",
                 sep = ""
             ))
@@ -105,7 +106,7 @@ gcluster.run2 <- function(...,
             }
 
             cat("Preparing for distribution...\n")
-            save(.GLIBDIR, file = paste(tmp.dirname, "libdir", sep = "/"))
+            save(.GLIBDIR, envir = .misha, file = paste(tmp.dirname, "libdir", sep = "/"))
             vars <- ls(all.names = TRUE, envir = parent.frame())
             envir <- parent.frame()
             while (!identical(envir, .GlobalEnv)) {
@@ -176,7 +177,7 @@ gcluster.run2 <- function(...,
                     }
                 }
                 Sys.sleep(3)
-                running.jobs <- .gcluster.running.jobs(submitted.jobs)
+                running.jobs <- misha:::.gcluster.running.jobs(submitted.jobs)
                 old.completed.jobs <- completed.jobs
                 completed.jobs <- setdiff(submitted.jobs, running.jobs)
                 if (debug) {
@@ -225,7 +226,7 @@ gcluster.run2 <- function(...,
         },
         finally = {
             if (length(submitted.jobs) > 0) {
-                running.jobs <- .gcluster.running.jobs(submitted.jobs)
+                running.jobs <- misha:::.gcluster.running.jobs(submitted.jobs)
                 answer <- c()
                 for (i in 1:length(commands)) {
                     res <- list()
