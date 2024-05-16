@@ -21,6 +21,8 @@ gvtrack.array_extract(
 \item{iterator}{track expression iterator. If 'NULL' iterator is determined
 implicitly based on track expressions.}
 
+\item{func}{function to apply to each column. See \code{misha::gvtrack.create}}
+
 \item{slice}{a vector of column names or column indices or 'NULL'}
 
 \item{...}{track expression}

@@ -8,6 +8,7 @@
 #' @param ... additional parameters for fwrite
 #'
 #' @inheritDotParams tgutil::fwrite
+#' @inheritParams data.table::fwrite
 #'
 #' @examples
 #' \dontrun{

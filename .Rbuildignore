@@ -1,1 +1,5 @@
 ^\.pre-commit-config\.yaml$
+^LICENSE\.md$
+^misha\.ext\.Rproj$
+^README\.html$
+^README\.Rmd$

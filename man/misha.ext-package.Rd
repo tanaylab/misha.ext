@@ -6,7 +6,7 @@
 \alias{misha.ext-package}
 \title{misha.ext: A home to functions that extend the misha package}
 \description{
-A home to functions that extend the misha package
+This package provides additional functions that extend the functionality of the misha package.
 }
 \author{
 \strong{Maintainer}: Aviezer Lifshitz \email{aviezer.lifshitz@weizmann.ac.il}

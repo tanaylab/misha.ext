@@ -22,9 +22,13 @@ fwrite_header(
 
 \item{header}{string with the header}
 
+\item{sep}{The separator between columns. Default is \code{","}.}
+
 \item{col_names}{write column names}
 
 \item{append}{append to an existing file}
+
+\item{scipen}{ \code{integer} In terms of printing width, how much of a bias should there be towards printing whole numbers rather than scientific notation? See Details. }
 
 \item{...}{
   Arguments passed on to \code{\link[tgutil:fwrite]{tgutil::fwrite}}

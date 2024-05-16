@@ -24,7 +24,7 @@
 #' }
 #' }
 #' @export
-gseq.create_track <- function(s, track, strand = 1, res = NULL, intervals = gintervals.all()) {
+gseq.create_track <- function(s, track, strand = 1, intervals = gintervals.all()) {
     if (is.null(getOption("gmax.data.size"))) {
         options(gmax.data.size = 1000000000)
     }

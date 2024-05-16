@@ -12,7 +12,7 @@ gintervals.distance(intervals1, intervals2)
 \item{intervals2}{first intervals set (should be the same length as \code{intervals1})}
 }
 \value{
-a vector containing for each i..N the distance between each interval1\link{i} and intervals2\link{i}, where N is the number
+a vector containing for each i..N the distance between each interval1\[i\] and intervals2\[i\], where N is the number
 of intervals
 }
 \description{
