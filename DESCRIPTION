@@ -6,7 +6,7 @@ Authors@R:
            family = "Lifshitz",
            role = c("aut", "cre"),
            email = "aviezer.lifshitz@weizmann.ac.il")
-Description: A home to functions that extend the misha package
+Description: This package provides additional functions that extend the functionality of the misha package.
 License: MIT + file LICENSE
 Suggests: 
     testthat
@@ -30,5 +30,6 @@ Imports:
     stringi,
     progress,
     withr,
-    rlang
+    rlang,
+    cli
 Remotes: tanaylab/misha, tanaylab/tgutil, tanaylab/tgconfig

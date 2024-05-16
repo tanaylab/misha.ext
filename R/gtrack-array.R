@@ -1,6 +1,7 @@
 #' Extract a virtual track on each array.track column
 #'
 #' @param track array track
+#' @param func function to apply to each column. See \code{misha::gvtrack.create}
 #' @inheritParams misha::gextract
 #' @inheritParams misha::gtrack.array.extract
 #' @inheritParams misha::gvtrack.create

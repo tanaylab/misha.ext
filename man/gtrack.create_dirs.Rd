@@ -7,7 +7,7 @@
 gtrack.create_dirs(track, showWarnings = TRUE, mode = "0777")
 }
 \arguments{
-\item{track}{}
+\item{track}{track name}
 
 \item{showWarnings}{see 'dir.create'}
 

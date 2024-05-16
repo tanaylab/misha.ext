@@ -13,7 +13,6 @@ fwrite_ucsc(
   color = "black",
   rm_intervalID = TRUE,
   append = FALSE,
-  sparse = TRUE,
   span = NULL,
   categories = NULL,
   ...
@@ -50,10 +49,18 @@ Write USCS genome browser file from intervals set data frame
 gset_genome("mm9")
 intervals <- gintervals(1, c(3025716, 3052742, 3181668), c(3026216, 3053242, 3182168))
 intervals$score <- c(0.2, 0.5, 1)
-fwrite_ucsc(intervals, "out.ucsc", name = "clust1", type = "bedGraph", graphType = "bar", color = "red", viewLimits = "0:1", autoScale = "off")
+fwrite_ucsc(intervals, "out.ucsc",
+    name = "clust1", type = "bedGraph",
+    graphType = "bar", color = "red", viewLimits = "0:1",
+    autoScale = "off"
+)
 intevals2 <- gintervals(1, c(3671488, 3903482, 3943609), c(3671988, 3903982, 3944109))
 intevals2$score <- c(1, 0.2, 0.45)
-fwrite_ucsc(intervals2, "out.ucsc", name = "clust2", type = "bedGraph", graphType = "bar", color = "blue", viewLimits = "0:1", autoScale = "off", append = TRUE)
+fwrite_ucsc(intervals2, "out.ucsc",
+    name = "clust2", type = "bedGraph",
+    graphType = "bar", color = "blue", viewLimits = "0:1",
+    autoScale = "off", append = TRUE
+)
 }
 
 }

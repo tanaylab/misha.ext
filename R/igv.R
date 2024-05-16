@@ -19,7 +19,7 @@ fwrite_igv <- function(data, file, type = NULL, rm_intervalID = TRUE, feature_na
         header <- glue("#type={type}")
     } else {
         igv_options <- list(...)
-        header <- paste0("#track", paste(imap_chr(igv_options, ~ glue("{.y}={.x}")), collapse = " "))
+        header <- paste0("#track", paste(purrr::imap_chr(igv_options, ~ glue("{.y}={.x}")), collapse = " "))
     }
 
     if (rm_intervalID) {

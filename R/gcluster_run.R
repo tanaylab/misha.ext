@@ -47,7 +47,6 @@ gcluster.run2 <- function(...,
                           num_proc_flag = "-l num_proc={num_proc}",
                           script = system.file("bin", "sgjob.sh", package = "misha.ext"),
                           verbose = FALSE) {
-    library(misha)
     if (!is.null(command_list)) {
         commands <- purrr::map(command_list, function(x) parse(text = x))
     } else {

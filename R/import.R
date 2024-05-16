@@ -35,7 +35,7 @@ gtrack.import_mappedseq_bam <- function(bam_files, min_mapq = NULL, ...) {
 
 #' Create directories needed for track creation
 #'
-#' @param track
+#' @param track track name
 #'
 #' @inheritParams misha::gdir.create
 #' @examples

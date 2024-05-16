@@ -17,6 +17,8 @@ gextract.left_join(
 )
 }
 \arguments{
+\item{expr}{track expression}
+
 \item{intervals}{genomic scope for which the function is applied}
 
 \item{colnames}{sets the columns names in the returned value. If 'NULL'

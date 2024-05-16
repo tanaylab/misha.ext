@@ -4,13 +4,7 @@
 \alias{gseq.create_track}
 \title{Create sequence tracks for misha database}
 \usage{
-gseq.create_track(
-  s,
-  track,
-  strand = 1,
-  res = NULL,
-  intervals = gintervals.all()
-)
+gseq.create_track(s, track, strand = 1, intervals = gintervals.all())
 }
 \arguments{
 \item{s}{sequence to look for. can be a regex.}
