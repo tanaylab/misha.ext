@@ -226,11 +226,17 @@ gintervals.distance <- function(intervals1, intervals2) {
 #' @export
 grandom_genome <- function(size, n, dist_from_edge = 3e6, chromosomes = NULL) {
     all_genome <- misha::gintervals.all()
+
     if (!is.null(chromosomes)) {
-        all_genome <- all_genome %>% filter(chrom %in% chromosomes)
+        all_genome <- all_genome %>%
+            filter(chrom %in% chromosomes)
         if (nrow(all_genome) == 0) {
             cli_abort("No chromosomes named {.val {chromosomes}} found in the genome.")
         }
+    } else {
+        all_genome <- all_genome %>%
+            mutate(l = end - start) %>%
+            filter(l >= dist_from_edge)
     }
 
     all_genome <- all_genome %>%
