@@ -19,7 +19,7 @@ Depends:
     misha (>= 4.2.0),
 Imports: 
     tgutil,
-    tgconfig,    
+    tgconfig,
     dplyr,
     purrr,
     glue,
@@ -29,5 +29,6 @@ Imports:
     stringr,
     stringi,
     progress,
-    withr
+    withr,
+    rlang
 Remotes: tanaylab/misha, tanaylab/tgutil, tanaylab/tgconfig
