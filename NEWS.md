@@ -1,3 +1,7 @@
+# misha.ext 0.1.0
+
+* Added the `gdb.create_genome` function.
+
 # misha.ext 0.0.10
 
 * Changed the default of `force` parameter in `gset_genome` to `TRUE`
