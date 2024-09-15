@@ -34,6 +34,7 @@ gdb.create_genome <- function(genome, path = getwd(), tmpdir = tempdir()) {
     # Create a temporary file to store the download
     temp_file <- tempfile(fileext = ".tar.gz", tmpdir = tmpdir)
 
+    withr::local_options(list(timeout = 60 * 60 * 2))
     # Download the genome file
     message("Downloading ", genome, " genome...")
     download.file(url, temp_file, mode = "wb")

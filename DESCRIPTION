@@ -27,6 +27,7 @@ Imports:
     tidyr,
     magrittr,
     stringr,
+    withr,
     stringi,
     progress,
     withr,
