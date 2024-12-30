@@ -266,3 +266,87 @@ grandom_genome <- function(size, n, dist_from_edge = 3e6, chromosomes = NULL) {
 
     return(res)
 }
+
+#' Mark overlapping intervals with a group ID
+#'
+#' @param intervals intervals set
+#' @param group_col name of the column to store the overlap group IDs (default: "overlap_group")
+#' @return The intervals set with an additional column containing group IDs
+#' from gintervals.canonic mapping. All overlapping intervals will have the same group ID.
+#'
+#' @examples
+#' \dontrun{
+#' gdb.init_examples()
+#' # Create sample overlapping intervals
+#' intervs <- data.frame(
+#'     chrom = "chr1",
+#'     start = c(11000, 100, 10000, 10500),
+#'     end = c(12000, 200, 13000, 10600),
+#'     data = c(10, 20, 30, 40)
+#' )
+#'
+#' # Mark overlapping intervals
+#' intervs_marked <- gintervals.mark_overlaps(intervs)
+#'
+#' # Use custom column name
+#' intervs_marked <- gintervals.mark_overlaps(intervs, group_col = "my_groups")
+#' }
+#' @inheritParams misha::gintervals.canonic
+#' @export
+gintervals.mark_overlaps <- function(intervals, group_col = "overlap_group", unify_touching_intervals = TRUE) {
+    # Get canonical form and its mapping
+    canon <- gintervals.canonic(intervals, unify_touching_intervals = unify_touching_intervals)
+    mapping <- attr(canon, "mapping")
+
+    # Add mapping as a column
+    intervals %>%
+        mutate(!!group_col := mapping)
+}
+
+#' Remove overlapping intervals by selecting one interval per overlap group
+#'
+#' @param intervals intervals set
+#' @param select how to select intervals from each group: "first", "last", or "random" (default: "first")
+#' @return The intervals set with overlapping intervals removed, keeping one interval per group
+#' based on the selection method
+#'
+#' @examples
+#' \dontrun{
+#' # Create sample overlapping intervals
+#' intervs <- data.frame(
+#'     chrom = "chr1",
+#'     start = c(11000, 100, 10000, 10500),
+#'     end = c(12000, 200, 13000, 10600),
+#'     data = c(10, 20, 30, 40)
+#' )
+#'
+#' # Remove overlaps keeping first interval in each group
+#' non_overlapping <- gintervals.remove_overlaps(intervs)
+#'
+#' # Remove overlaps keeping random interval from each group
+#' non_overlapping <- gintervals.remove_overlaps(intervs, select = "random")
+#' }
+#' @export
+gintervals.remove_overlaps <- function(intervals, select = c("first", "last", "random")) {
+    select <- match.arg(select)
+
+    # Mark overlaps with temporary column name
+    intervals_marked <- gintervals.mark_overlaps(intervals, group_col = ".__group")
+
+    # Select one interval per group based on selection method
+    result <- intervals_marked %>%
+        group_by(.__group) %>%
+        {
+            switch(select,
+                "first" = slice_head(., n = 1),
+                "last" = slice_tail(., n = 1),
+                "random" = slice_sample(., n = 1)
+            )
+        } %>%
+        ungroup()
+
+    # Remove temporary group column
+    result$.__group <- NULL
+
+    return(result)
+}
