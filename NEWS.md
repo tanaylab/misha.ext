@@ -1,3 +1,7 @@
+# misha.ext 0.1.1
+
+* Added `gintervals.mark_overlaps` and `gintervals.remove_overlaps` functions.
+
 # misha.ext 0.1.0
 
 * Added the `gdb.create_genome` function.
