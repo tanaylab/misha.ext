@@ -10,8 +10,11 @@
 #'
 #' @examples
 #' \dontrun{
+#' gseq.create_track("A", "seq.A")
 #' gseq.create_track("C", "seq.C")
 #' gseq.create_track("T", "seq.T")
+#' gseq.create_track("G", "seq.G")
+#'
 #' gseq.create_track("CG", "seq.CG") # genome CpGs
 #' gseq.create_track("[GC]", "seq.G_or_C") # C or G (for GC content calculations)
 #'
