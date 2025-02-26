@@ -1,3 +1,7 @@
+# misha.ext 0.1.2
+
+* Added `gintervals.align` function.
+
 # misha.ext 0.1.1
 
 * Added `gintervals.mark_overlaps` and `gintervals.remove_overlaps` functions.
