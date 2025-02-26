@@ -350,3 +350,83 @@ gintervals.remove_overlaps <- function(intervals, select = c("first", "last", "r
 
     return(result)
 }
+
+#' Align intervals to the closest intervals in another set
+#'
+#' @param intervals intervals set to be aligned
+#' @param align_intervals intervals set to align to
+#' @param mindist minimum distance to consider for alignment
+#' @param maxdist maximum distance to consider for alignment
+#'
+#' @return An intervals set with the same number of rows as \code{intervals}, where each interval
+#' that has a neighbor with distance 0 in \code{align_intervals} is replaced with that neighbor.
+#' Intervals without a neighbor at distance 0 remain unchanged.
+#'
+#' @examples
+#'
+#' # Create sample intervals
+#' intervals <- data.frame(
+#'     chrom = c("chr1", "chr1", "chr2"),
+#'     start = c(1000, 2000, 1500),
+#'     end = c(1100, 2100, 1600),
+#'     value = c(10, 20, 30)
+#' )
+#' intervals
+#'
+#' # Create alignment target intervals
+#' align_intervals <- data.frame(
+#'     chrom = c("chr1", "chr1"),
+#'     start = c(1000, 2050),
+#'     end = c(1100, 2150),
+#'     score = c(5, 6)
+#' )
+#' align_intervals
+#'
+#' # Align intervals to align_intervals
+#' aligned <- gintervals.align(intervals, align_intervals)
+#' aligned
+#'
+#' @seealso \link[misha]{gintervals.neighbors}
+#' @export
+gintervals.align <- function(intervals,
+                             align_intervals,
+                             mindist = 0,
+                             maxdist = 0) {
+    # Store original column types
+    chrom_type <- class(intervals$chrom)
+
+    # Find neighbors between intervals and align_intervals
+    intervals_aligned <- intervals %>%
+        gintervals.neighbors1(
+            intervals2 = align_intervals,
+            mindist = mindist,
+            maxdist = maxdist
+        ) %>%
+        # Replace coordinates with neighbor coordinates if dist is within range
+        mutate(
+            chrom = ifelse(!is.na(dist) & dist <= maxdist & dist >= mindist,
+                as.character(chrom1), as.character(chrom)
+            ),
+            start = ifelse(!is.na(dist) & dist <= maxdist & dist >= mindist, start1, start),
+            end = ifelse(!is.na(dist) & dist <= maxdist & dist >= mindist, end1, end)
+        )
+
+    # Handle strand column if present
+    if ("strand" %in% colnames(intervals_aligned)) {
+        intervals_aligned <- intervals_aligned %>%
+            mutate(
+                strand = ifelse(!is.na(dist) & dist <= maxdist & dist >= mindist, strand1, strand)
+            )
+    }
+
+    # Keep only the original columns from intervals
+    intervals_aligned <- intervals_aligned %>%
+        select(any_of(colnames(intervals)))
+
+    # Restore original chrom column type if it was a factor
+    if ("factor" %in% chrom_type) {
+        intervals_aligned$chrom <- factor(intervals_aligned$chrom, levels = levels(intervals$chrom))
+    }
+
+    return(intervals_aligned)
+}
