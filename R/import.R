@@ -8,8 +8,9 @@
 #'
 #' @export
 #' @inheritDotParams misha::gtrack.import_mappedseq
+#' @inheritParams misha::gtrack.import_mappedseq
 #' @seealso \link[misha]{gtrack.import_mappedseq}
-gtrack.import_mappedseq_bam <- function(bam_files, min_mapq = NULL, ...) {
+gtrack.import_mappedseq_bam <- function(bam_files, track, min_mapq = NULL, ...) {
     cat_cmd <- "cat"
     if (length(bam_files) > 1) {
         cat_cmd <- "samtools cat"
@@ -27,7 +28,7 @@ gtrack.import_mappedseq_bam <- function(bam_files, min_mapq = NULL, ...) {
     tryCatch(
         {
             system(glue("mkfifo {tmp_fifo}; {cat_cmd} {files} | {view_cmd} > {tmp_fifo}"), wait = FALSE)
-            gtrack.import_mappedseq(file = tmp_fifo, cols.order = NULL, ...)
+            gtrack.import_mappedseq(file = tmp_fifo, cols.order = NULL, track = track, ...)
         },
         finally = system(glue("rm -f {tmp_fifo}"))
     )
