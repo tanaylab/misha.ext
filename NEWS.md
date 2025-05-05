@@ -1,3 +1,8 @@
+# misha.ext 0.1.3
+
+* Fixed a bug in `gtrack.import_mappedseq_bam` where the `track` parameter was not being passed to `gtrack.import_mappedseq`.
+* Fixed a bug in `fwrite_ucsc` where the `span` parameter caused intervals to exceed chromosome boundaries.
+
 # misha.ext 0.1.2
 
 * Added `gintervals.align` function.

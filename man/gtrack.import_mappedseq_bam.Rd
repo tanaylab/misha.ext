@@ -4,17 +4,18 @@
 \alias{gtrack.import_mappedseq_bam}
 \title{Wrapper around gtrack.import_mappedseq for (multiple) bam files}
 \usage{
-gtrack.import_mappedseq_bam(bam_files, min_mapq = NULL, ...)
+gtrack.import_mappedseq_bam(bam_files, track, min_mapq = NULL, ...)
 }
 \arguments{
 \item{bam_files}{vector of bam (or sam) files to import}
+
+\item{track}{track name}
 
 \item{min_mapq}{skip alignments with MAPQ smaller than \code{min_mapq}}
 
 \item{...}{
   Arguments passed on to \code{\link[misha:gtrack.import_mappedseq]{misha::gtrack.import_mappedseq}}
   \describe{
-    \item{\code{track}}{track name}
     \item{\code{description}}{a character string description}
     \item{\code{file}}{name of mapped sequences file}
     \item{\code{pileup}}{interval expansion}
