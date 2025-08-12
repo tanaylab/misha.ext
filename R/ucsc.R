@@ -55,11 +55,20 @@ fwrite_ucsc <- function(intervals, file, name, type = NULL, description = "", co
         }
     }
 
+    ext <- span %||% 0
+
+    intervals <- intervals %>%
+        mutate(temp_id = 1:n())
+
     data1 <- intervals %>%
-        select(chrom:end) %>%
+        select(chrom:end, temp_id) %>%
         left_join(gintervals.all() %>% rename(chrstart = start, chrend = end), by = "chrom") %>%
         filter(end + span <= chrend)
 
+    intervals <- intervals[data1$temp_id, ]
+
+    data1 <- data1 %>%
+        select(-temp_id)
 
     if (rlang::has_name(intervals, "name")) {
         data1 <- data1 %>% bind_cols(intervals %>% select(name))
