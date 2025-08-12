@@ -1,3 +1,7 @@
+# misha.ext 0.1.4
+
+* fix: `fwrite_ucsc` did not remove chroms outside the boundries when `span=NULL`
+
 # misha.ext 0.1.3
 
 * Fixed a bug in `gtrack.import_mappedseq_bam` where the `track` parameter was not being passed to `gtrack.import_mappedseq`.
