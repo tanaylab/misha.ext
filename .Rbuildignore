@@ -3,3 +3,5 @@
 ^misha\.ext\.Rproj$
 ^README\.html$
 ^README\.Rmd$
+^conda-recipe$
+^\.github$
