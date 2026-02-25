@@ -1,0 +1,70 @@
+{% set name = "misha.ext" %}
+{% set version = environ.get("PACKAGE_VERSION", "0.1.4") %}
+
+package:
+  name: r-{{ name|lower }}
+  version: {{ version }}
+
+source:
+  path: ..
+
+build:
+  number: 0
+  skip: true  # [win or osx]
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+requirements:
+  host:
+    - r-base {{ r_base }}.*
+    - r-misha
+    - r-tgutil
+    - r-tgconfig
+    - r-dplyr
+    - r-purrr
+    - r-glue
+    - r-tibble
+    - r-tidyr
+    - r-magrittr
+    - r-stringr
+    - r-withr
+    - r-stringi
+    - r-progress
+    - r-rlang
+    - r-cli
+  run:
+    - r-base {{ r_base }}.*
+    - r-misha
+    - r-tgutil
+    - r-tgconfig
+    - r-dplyr
+    - r-purrr
+    - r-glue
+    - r-tibble
+    - r-tidyr
+    - r-magrittr
+    - r-stringr
+    - r-withr
+    - r-stringi
+    - r-progress
+    - r-rlang
+    - r-cli
+
+test:
+  commands:
+    - $R -e "library('misha.ext')"
+
+about:
+  home: https://github.com/tanaylab/misha.ext
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: A home to functions that extend the misha package
+  description: |
+    Functions that extend the misha package for genomic data analysis.
+  dev_url: https://github.com/tanaylab/misha.ext
+
+extra:
+  recipe-maintainers:
+    - aviezerl
