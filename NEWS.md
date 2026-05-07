@@ -1,3 +1,8 @@
+# misha.ext 0.1.5
+
+* Added `gtrack.create_kmer()`: builds a dense k-mer count/fraction track in one call. Whole-hg38 GC-content tracks complete in seconds. Supports multi-kmer summation (e.g. `c("G", "C")` for GC content) and an optional sliding `window`.
+* `gseq.create_track` is now defunct. Use `gtrack.create_kmer` instead - it is faster, produces a dense track, and supports multi-kmer summation and sliding windows.
+
 # misha.ext 0.1.4
 
 * fix: `fwrite_ucsc` did not remove chroms outside the boundries when `span=NULL`

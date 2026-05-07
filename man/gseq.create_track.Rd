@@ -2,38 +2,29 @@
 % Please edit documentation in R/seq.R
 \name{gseq.create_track}
 \alias{gseq.create_track}
-\title{Create sequence tracks for misha database}
+\title{Defunct: use \code{gtrack.create_kmer} instead}
 \usage{
-gseq.create_track(s, track, strand = 1, intervals = gintervals.all())
+gseq.create_track(...)
 }
 \arguments{
-\item{s}{sequence to look for. can be a regex.}
-
-\item{track}{name of the track to create}
-
-\item{strand}{strand of the sequences}
-
-\item{intervals}{intervals set}
+\item{...}{formerly accepted arguments; now ignored.}
 }
 \description{
-Create tracks based on the presence of specific sequences.
+\code{gseq.create_track} has been removed in favour of
+\code{\link[=gtrack.create_kmer]{gtrack.create_kmer()}}, which is faster (whole-genome scans in seconds),
+produces a dense track, and supports multi-kmer summation
+(e.g. \code{c("G", "C")} for GC content) plus an optional sliding window.
 }
-\examples{
-\dontrun{
-gseq.create_track("A", "seq.A")
-gseq.create_track("C", "seq.C")
-gseq.create_track("T", "seq.T")
-gseq.create_track("G", "seq.G")
-
-gseq.create_track("CG", "seq.CG") # genome CpGs
-gseq.create_track("[GC]", "seq.G_or_C") # C or G (for GC content calculations)
-
-# create all dinucleotide tracks
-dinucs <- expand.grid(c("T", "C", "G", "A"), c("T", "C", "G", "A"))
-dinucs <- apply(dinucs, 1, paste, collapse = "")
-for (dinuc in dinucs) {
-    message(dinuc)
-    gseq.create_track(dinuc, paste0("seq.", dinuc))
+\details{
+Migration:
+\preformatted{
+# Old:
+gseq.create_track("CG", "seq.CG")
+# New:
+gtrack.create_kmer("seq.CG", "CG starts (fwd)",
+                   kmer = "CG", iterator = 1, strand = 1)
 }
 }
+\seealso{
+\code{\link[=gtrack.create_kmer]{gtrack.create_kmer()}}
 }
