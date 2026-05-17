@@ -2,16 +2,13 @@
 % Please edit documentation in R/utils.R
 \name{mat_to_intervs}
 \alias{mat_to_intervs}
-\title{Transform a matrix with coordinate rownames to intervals set}
+\title{Transform a matrix to intervals set (deprecated)}
 \usage{
 mat_to_intervs(mat)
 }
-\arguments{
-\item{mat}{matrix with coordinate rownames (chrom_start_end).}
-}
 \value{
-intervals set
+see \code{\link[misha:gintervals.from_mat]{misha::gintervals.from_mat()}}
 }
 \description{
-Transform a matrix with coordinate rownames to intervals set
+Deprecated. Use \code{\link[misha:gintervals.from_mat]{misha::gintervals.from_mat()}} instead.
 }
