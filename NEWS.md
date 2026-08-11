@@ -1,5 +1,6 @@
 # misha.ext 0.1.5
 
+* **Database corruption fix:** `gset_genome()` always calls `gsetroot()` now. Its memoized fast path (`force = FALSE`) restored only part of the misha session - leaving the previous genome's chromosome aliases and dataset maps in place, and replaying a track listing that went stale as soon as a track was added. That stale listing could then be written into the current database's `.db.cache`, so every other user of that database saw the wrong tracks. The `force` argument is now ignored and kept only for backward compatibility.
 * Added `gtrack.create_kmer()`: builds a dense k-mer count/fraction track in one call. Whole-hg38 GC-content tracks complete in seconds. Supports multi-kmer summation (e.g. `c("G", "C")` for GC content) and an optional sliding `window`.
 * `gseq.create_track` is now defunct. Use `gtrack.create_kmer` instead - it is faster, produces a dense track, and supports multi-kmer summation and sliding windows.
 

@@ -12,12 +12,15 @@ gset_genome(genome, params_yaml = find_params_yaml(), force = TRUE)
 \arguments{
 \item{genome}{name of the genome (e.g. hg19)}
 
-\item{params_yaml}{path to .misha.yaml parameters file. By default, \code{misha.ext} would look for such file}
-
-\item{force}{force gsetroot call, overwriting exsiting memoized genome
+\item{params_yaml}{path to .misha.yaml parameters file. By default, \code{misha.ext} would look for such file
 first at the current directory, then at the user's home directory, then at an environment variable called "MISHA_GENOMES"
 and if none of the above exist - a new file would be created at the user's home directory. You can run \code{find_params_yaml}
 to see the current location of your configuration file.}
+
+\item{force}{ignored, kept for backward compatibility. It used to select a
+memoized session snapshot instead of calling \code{gsetroot()}; the snapshot
+held only part of the misha session, so restoring it could leave the previous
+genome's chromosome aliases, dataset maps and track listing in place.}
 }
 \description{
 Set misha root based on genome name
