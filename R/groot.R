@@ -39,10 +39,14 @@ init_config <- function(params_yaml) {
 #'
 #' @param genome name of the genome (e.g. hg19)
 #' @param params_yaml path to .misha.yaml parameters file. By default, \code{misha.ext} would look for such file
-#' @param force force gsetroot call, overwriting exsiting memoized genome
 #' first at the current directory, then at the user's home directory, then at an environment variable called "MISHA_GENOMES"
 #' and if none of the above exist - a new file would be created at the user's home directory. You can run \code{find_params_yaml}
 #' to see the current location of your configuration file.
+#'
+#' @param force ignored, kept for backward compatibility. It used to select a
+#' memoized session snapshot instead of calling \code{gsetroot()}; the snapshot
+#' held only part of the misha session, so restoring it could leave the previous
+#' genome's chromosome aliases, dataset maps and track listing in place.
 #'
 #' @examples
 #' \dontrun{
@@ -55,22 +59,16 @@ gset_genome <- function(genome, params_yaml = find_params_yaml(), force = TRUE) 
     if (is.null(groot)) {
         stop("no genome named ", genome, " in params yaml")
     }
-    if (!exists("global_groots", envir = .misha)) {
-        global_groots <- list()
-    } else {
-        global_groots <- get("global_groots", envir = .misha)
+    # Always go through gsetroot(). The old memoized fast path restored only
+    # ALLGENOME/GROOT/GWD/GTRACKS/GINTERVS, leaving CHROM_ALIAS,
+    # DB_IS_PER_CHROMOSOME, GDATASETS and GTRACK_DATASET pointing at the
+    # previously loaded genome, and it replayed a snapshot that went stale as
+    # soon as a track was added. gsetroot() reads the on-disk .db.cache, so it
+    # is fast anyway.
+    if (exists("global_groots", envir = .misha)) {
+        rm("global_groots", envir = .misha)
     }
-    if (is.null(global_groots[[genome]]) || force) {
-        gsetroot(groot)
-        global_groots[[genome]] <- list(ALLGENOME = .misha$ALLGENOME, GROOT = .misha$GROOT, GWD = .misha$GWD, GTRACKS = .misha$GTRACKS, GINTERVS = .misha$GINTERVS)
-    } else {
-        assign("ALLGENOME", global_groots[[genome]][["ALLGENOME"]], envir = .misha)
-        assign("GROOT", global_groots[[genome]][["GROOT"]], envir = .misha)
-        assign("GWD", global_groots[[genome]][["GWD"]], envir = .misha)
-        assign("GTRACKS", global_groots[[genome]][["GTRACKS"]], envir = .misha)
-        assign("GINTERVS", global_groots[[genome]][["GINTERVS"]], envir = .misha)
-    }
-    assign("global_groots", global_groots, envir = .misha)
+    gsetroot(groot)
 }
 
 get_genome <- function(genome, params_yaml) {
