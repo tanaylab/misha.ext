@@ -49,7 +49,7 @@ tgutil::pmean
 #'
 #' @export
 intervs_to_mat <- function(df, remove_intervalID = TRUE) {
-    .Deprecated("misha::gintervals.to_mat")
+    deprecate_soft("intervs_to_mat", "misha::gintervals.to_mat")
     misha::gintervals.to_mat(df)
 }
 
@@ -65,6 +65,22 @@ intervs_to_mat <- function(df, remove_intervalID = TRUE) {
 #'
 #' @export
 mat_to_intervs <- function(mat) {
-    .Deprecated("misha::gintervals.from_mat")
+    deprecate_soft("mat_to_intervs", "misha::gintervals.from_mat")
     misha::gintervals.from_mat(mat)
+}
+
+# Soft deprecation: warn once per session instead of on every call, and stay
+# quiet when the call comes from another package (nothing the user can fix).
+# ponytail: rlang is already a dependency - no need for lifecycle.
+deprecate_soft <- function(old, new) {
+    caller <- topenv(parent.frame(2))
+    if (isNamespace(caller) && !identical(caller, topenv(environment()))) {
+        return(invisible(NULL))
+    }
+    rlang::warn(
+        sprintf("`%s()` is deprecated, use `%s()` instead.", old, new),
+        class = "lifecycle_warning_deprecated",
+        .frequency = "once",
+        .frequency_id = paste0("misha.ext::", old)
+    )
 }
