@@ -12,6 +12,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{tgutil}{\code{\link[tgutil]{pmean}}, \code{\link[tgutil]{psum}}}
+  \item{tgutil}{\code{\link[tgutil:pmean]{pmean()}}, \code{\link[tgutil:psum]{psum()}}}
 }}
 

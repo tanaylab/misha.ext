@@ -20,6 +20,7 @@
 #' @export
 gextract_meth <- function(tracks, names = NULL, intervals = gintervals.all(), iterator = "intervs.global.seq_CG", d_expand = NULL, join_intervals = FALSE, extract_meth_calls = FALSE, avg_tracks = NULL, avg_tracks_names = NULL, annot_tracks = NULL,
                           annot_tracks_names = NULL, min_cov = NULL, ...) {
+    deprecate_soft("gextract_meth", "extract `func = \"sum\"` virtual tracks of the `.meth` and `.cov` tracks and divide")
     opt <- options(gmax.data.size = 1e9)
     on.exit(options(opt))
 

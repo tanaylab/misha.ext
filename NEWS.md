@@ -1,3 +1,8 @@
+# misha.ext 0.2.0
+
+* misha.ext is retired. Every function warns, once per session, with what to use instead (listed in the README). Results are unchanged, and calls from other packages stay quiet.
+* `get_promoters()`, `gintervals.expand()` and `gintervals.remove_overlaps()` moved to misha 5.21.0 (`gintervals.promoters()`, `gintervals.expand()`, `gintervals.remove_overlaps()`) and pymisha 0.25.0. `gintervals.promoters()` windows are `upstream + downstream` bp, and strand 0 covers both directions.
+
 # misha.ext 0.1.5
 
 * **Database corruption fix:** `gset_genome()` always calls `gsetroot()` now. Its memoized fast path (`force = FALSE`) restored only part of the misha session - leaving the previous genome's chromosome aliases and dataset maps in place, and replaying a track listing that went stale as soon as a track was added. That stale listing could then be written into the current database's `.db.cache`, so every other user of that database saw the wrong tracks. The `force` argument is now ignored and kept only for backward compatibility.

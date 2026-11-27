@@ -8,6 +8,7 @@
 #'
 #' @export
 gvtrack.array_extract <- function(track, intervals, iterator, func = NULL, slice = NULL, ...) {
+    deprecate_soft("gvtrack.array_extract", "use `misha::gvtrack.array.slice()` virtual tracks with `misha::gextract()`")
     if (is.null(slice)) {
         slice <- gtrack.array.get_colnames(track)
     }

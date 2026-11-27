@@ -30,11 +30,7 @@ fwrite_header(
 
 \item{scipen}{ \code{integer} In terms of printing width, how much of a bias should there be towards printing whole numbers rather than scientific notation? See Details. }
 
-\item{...}{
-  Arguments passed on to \code{\link[tgutil:fwrite]{tgutil::fwrite}}
-  \describe{
-    \item{\code{}}{}
-  }}
+\item{...}{additional parameters for fwrite}
 }
 \description{
 writes a data frame with a header

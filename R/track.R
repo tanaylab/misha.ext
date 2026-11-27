@@ -20,6 +20,7 @@
 #'
 #' @export
 gtrack.marginal_sum <- function(out_track, tracks = NULL, track_regex = NULL, description = NULL, iterator = 10) {
+    deprecate_soft("gtrack.marginal_sum", "use `misha::gtrack.create()` with the sum of the tracks as the expression")
     if (is.null(tracks)) {
         if (!is.null(track_regex)) {
             tracks <- gtrack.ls(track_regex)
@@ -110,6 +111,7 @@ gtrack.create_kmer <- function(track, description, kmer,
                                iterator = 1, window = NULL,
                                strand = 0,
                                mode = c("count", "frac")) {
+    deprecate_soft("gtrack.create_kmer", "use `misha::gtrack.create()` over `kmer.frac` or `kmer.count` virtual tracks")
     mode <- match.arg(mode)
 
     if (!is.character(kmer) || length(kmer) == 0L) {
