@@ -17,13 +17,22 @@ gtrack.import_mappedseq_bam(bam_files, track, min_mapq = NULL, ...)
   Arguments passed on to \code{\link[misha:gtrack.import_mappedseq]{misha::gtrack.import_mappedseq}}
   \describe{
     \item{\code{description}}{a character string description}
-    \item{\code{file}}{name of mapped sequences file}
+    \item{\code{file}}{path to the mapped sequences file (see Description for
+accepted formats)}
     \item{\code{pileup}}{interval expansion}
     \item{\code{binsize}}{bin size of a dense track}
     \item{\code{cols.order}}{order of sequence, chromosome, coordinate and strand
-columns in mapped sequences file or NULL if SAM file is used}
+columns in mapped sequences file or NULL if SAM file is used. For BAM
+input the only accepted values are `NULL` or omission; an explicit
+non-NULL `cols.order` with BAM input is an error.}
     \item{\code{remove.dups}}{if 'TRUE' the duplicated coordinates are counted only
 once.}
+    \item{\code{paired}}{if 'TRUE' import paired-end fragments (see Description).}
+    \item{\code{min.mapq}}{minimal MAPQ of an imported SAM / BAM record.}
+    \item{\code{max.fraglen}}{maximal fragment length when 'paired' is 'TRUE' ('Inf'
+for no limit).}
+    \item{\code{one.based}}{if 'TRUE' the coordinates of a tab-delimited file are
+1-based (see Description). Not used for SAM / BAM, which are always 1-based.}
   }}
 }
 \value{

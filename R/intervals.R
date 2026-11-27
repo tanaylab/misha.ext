@@ -16,6 +16,7 @@ gintervals.neighbors1 <- function(intervals1 = NULL,
                                   maxdist = 1e+09,
                                   na.if.notfound = TRUE,
                                   fields = NULL) {
+    deprecate_soft("gintervals.neighbors1", "use `misha::gintervals.neighbors(..., na.if.notfound = TRUE)`")
     res <-
         gintervals.neighbors(
             intervals1 = intervals1,
@@ -49,6 +50,7 @@ gintervals.neighbors1 <- function(intervals1 = NULL,
 #' @return \code{intervals1} filtered to only intervals that are closer than \code{max_distance} to intervals2.
 #' @export
 gintervals.filter <- function(intervals1, intervals2, max_distance = 0, abs_dist = TRUE, bind_intervals2 = FALSE, ...) {
+    deprecate_soft("gintervals.filter", "use `misha::gintervals.neighbors()` with `maxdist`")
     intervals1_cols <- colnames(intervals1)
     res <- intervals1 %>% gintervals.neighbors1(intervals2, ...)
     if (abs_dist) {
@@ -74,6 +76,7 @@ gintervals.filter <- function(intervals1, intervals2, max_distance = 0, abs_dist
 #'
 #' @seealso \link[misha]{gextract}
 gextract.left_join <- function(expr, intervals = NULL, colnames = NULL, iterator = NULL, band = NULL, file = NULL, intervals.set.out = NULL, suffix = "1") {
+    deprecate_soft("gextract.left_join", "use `misha::gextract(..., intervals_join = \"intervals\")`")
     if ("character" %in% class(intervals)) {
         intervals <- gintervals.load(intervals)
     }
@@ -96,6 +99,7 @@ gextract.left_join <- function(expr, intervals = NULL, colnames = NULL, iterator
 #'
 #' @export
 get_promoters <- function(upstream = 500, downstream = 50, tss_intervals = "intervs.global.tss") {
+    deprecate_soft("get_promoters", "use `misha::gintervals.promoters()` (its windows are upstream + downstream bp wide, and strand 0 covers both directions)")
     gintervals.load(tss_intervals) %>%
         mutate(start = ifelse(strand == 1, start - upstream, start - downstream), end = ifelse(strand == 1, end + downstream, end + upstream)) %>%
         gintervals.force_range()
@@ -111,6 +115,7 @@ get_promoters <- function(upstream = 500, downstream = 50, tss_intervals = "inte
 #' }
 #' @export
 convert_10x_peak_names_to_misha_intervals <- function(pn) {
+    deprecate_soft("convert_10x_peak_names_to_misha_intervals", "use `misha::gintervals.from_strings()` on `chrom:start-end` names")
     intervals <- as.data.frame(do.call("rbind", stringr::str_split(pn, "-|:")))
     intervals[, 2:3] <- apply(intervals[, 2:3], 2, as.numeric)
     colnames(intervals) <- c("chrom", "start", "end")
@@ -129,6 +134,7 @@ convert_10x_peak_names_to_misha_intervals <- function(pn) {
 #' }
 #' @export
 convert_misha_intervals_to_10x_peak_names <- function(ints) {
+    deprecate_soft("convert_misha_intervals_to_10x_peak_names", "use `paste0(chrom, \":\", start, \"-\", end)`")
     if (!all(c("chrom", "start", "end") %in% colnames(ints))) {
         stop('intervals are not standard misha intervals,
             should be data frame with columns "chrom", "start", "end")')
@@ -146,6 +152,7 @@ convert_misha_intervals_to_10x_peak_names <- function(ints) {
 #'
 #' @export
 gintervals.centers <- function(inv) {
+    deprecate_soft("gintervals.centers", "use `misha::gintervals.normalize(intervals, 1)`")
     inv %>%
         mutate(center = floor((start + end) / 2), start = center, end = center + 1) %>%
         select(-center)
@@ -161,6 +168,7 @@ gintervals.centers <- function(inv) {
 #'
 #' @export
 gintervals.expand <- function(inv, expansion = 100) {
+    deprecate_soft("gintervals.expand", "use `misha::gintervals.expand()`")
     if (is.character(inv)) {
         inv <- gintervals.load(inv)
     }
@@ -183,6 +191,7 @@ gintervals.expand <- function(inv, expansion = 100) {
 #'
 #' @export
 gintervals.normalize <- function(inv, size) {
+    deprecate_soft("gintervals.normalize", "use `misha::gintervals.normalize()` (an odd size gives `size` bp, not `size - 1`)")
     centers <- gintervals.centers(inv) %>%
         mutate(end = end - 1)
     return(gintervals.expand(centers, floor(size / 2)))
@@ -198,6 +207,7 @@ gintervals.normalize <- function(inv, size) {
 #'
 #' @export
 gintervals.distance <- function(intervals1, intervals2) {
+    deprecate_soft("gintervals.distance", "compute the gap from the `start` and `end` columns")
     if (nrow(intervals1) != nrow(intervals2)) {
         stop("intervals1 and intervals2 should have the same length")
     }
@@ -225,6 +235,7 @@ gintervals.distance <- function(intervals1, intervals2) {
 #'
 #' @export
 grandom_genome <- function(size, n, dist_from_edge = 3e6, chromosomes = NULL) {
+    deprecate_soft("grandom_genome", "use `misha::gintervals.random()`")
     all_genome <- misha::gintervals.all()
 
     if (!is.null(chromosomes)) {
@@ -294,6 +305,7 @@ grandom_genome <- function(size, n, dist_from_edge = 3e6, chromosomes = NULL) {
 #' @inheritParams misha::gintervals.canonic
 #' @export
 gintervals.mark_overlaps <- function(intervals, group_col = "overlap_group", unify_touching_intervals = TRUE) {
+    deprecate_soft("gintervals.mark_overlaps", "use `misha::gintervals.mark_overlaps()`")
     # Get canonical form and its mapping
     canon <- gintervals.canonic(intervals, unify_touching_intervals = unify_touching_intervals)
     mapping <- attr(canon, "mapping")
@@ -328,6 +340,7 @@ gintervals.mark_overlaps <- function(intervals, group_col = "overlap_group", uni
 #' }
 #' @export
 gintervals.remove_overlaps <- function(intervals, select = c("first", "last", "random")) {
+    deprecate_soft("gintervals.remove_overlaps", "use `misha::gintervals.remove_overlaps()` (it keeps the input row order)")
     select <- match.arg(select)
 
     # Mark overlaps with temporary column name
@@ -392,6 +405,7 @@ gintervals.align <- function(intervals,
                              align_intervals,
                              mindist = 0,
                              maxdist = 0) {
+    deprecate_soft("gintervals.align", "use `misha::gintervals.neighbors()` and copy the neighbor's coordinates")
     # Store original column types
     chrom_type <- class(intervals$chrom)
 

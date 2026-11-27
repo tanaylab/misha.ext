@@ -2,6 +2,7 @@
 #' @export
 #' @rdname  gset_genome
 find_params_yaml <- function() {
+    deprecate_soft("find_params_yaml", "use `misha::gdb.genome_info(genome, registry = \"~/.misha.yaml\")`")
     if (file.exists(".misha.yaml")) {
         return(".misha.yaml")
     }
@@ -55,6 +56,7 @@ init_config <- function(params_yaml) {
 #'
 #' @export
 gset_genome <- function(genome, params_yaml = find_params_yaml(), force = TRUE) {
+    deprecate_soft("gset_genome", "use `misha::gsetroot(misha::gdb.genome_info(genome, registry = \"~/.misha.yaml\")$recipe$path)`")
     groot <- get_genome(genome, params_yaml)
     if (is.null(groot)) {
         stop("no genome named ", genome, " in params yaml")
@@ -84,5 +86,6 @@ get_genome <- function(genome, params_yaml) {
 #' @inheritParams gset_genome
 #' @export
 genome_exists <- function(genome, params_yaml = find_params_yaml()) {
+    deprecate_soft("genome_exists", "check `misha::gdb.list_genomes(registry = \"~/.misha.yaml\")`")
     return(!is.null(get_genome(genome, params_yaml)))
 }

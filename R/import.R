@@ -11,6 +11,7 @@
 #' @inheritParams misha::gtrack.import_mappedseq
 #' @seealso \link[misha]{gtrack.import_mappedseq}
 gtrack.import_mappedseq_bam <- function(bam_files, track, min_mapq = NULL, ...) {
+    deprecate_soft("gtrack.import_mappedseq_bam", "use `misha::gtrack.import_mappedseq()`, which reads BAM files itself (merge several with `samtools cat` first)")
     cat_cmd <- "cat"
     if (length(bam_files) > 1) {
         cat_cmd <- "samtools cat"

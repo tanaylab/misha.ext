@@ -6,6 +6,10 @@
 \usage{
 mat_to_intervs(mat)
 }
+\arguments{
+\item{mat}{an \code{intervs_mat} (produced by \code{gintervals.to_mat}) or a
+plain matrix (then \code{intervals} must be supplied).}
+}
 \value{
 see \code{\link[misha:gintervals.from_mat]{misha::gintervals.from_mat()}}
 }

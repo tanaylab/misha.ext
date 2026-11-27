@@ -33,6 +33,7 @@
 #'
 #' @export
 fwrite_ucsc <- function(intervals, file, name, type = NULL, description = "", color = "black", rm_intervalID = TRUE, append = FALSE, span = NULL, categories = NULL, ...) {
+    deprecate_soft("fwrite_ucsc", "write the track line and the rows with `writeLines()` and `tgutil::fwrite()`")
     color <- paste0(grDevices::col2rgb(color)[, 1], collapse = ",")
     header <- paste0("track ", glue("name={name} description=\"{description}\" color={color}"))
 

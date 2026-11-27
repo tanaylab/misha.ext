@@ -17,6 +17,7 @@
 #'
 #' @export
 fwrite_header <- function(data, file, header, sep = ",", col_names = FALSE, append = FALSE, scipen = 20, ...) {
+    deprecate_soft("fwrite_header", "write the header with `writeLines()` and append the rows with `tgutil::fwrite(append = TRUE)`")
     h1 <- paste(header, collapse = sep)
     if (col_names) {
         h2 <- paste(names(data), collapse = sep)
@@ -49,7 +50,7 @@ tgutil::pmean
 #'
 #' @export
 intervs_to_mat <- function(df, remove_intervalID = TRUE) {
-    deprecate_soft("intervs_to_mat", "misha::gintervals.to_mat")
+    deprecate_soft("intervs_to_mat", "use `misha::gintervals.to_mat()`")
     misha::gintervals.to_mat(df)
 }
 
@@ -65,20 +66,20 @@ intervs_to_mat <- function(df, remove_intervalID = TRUE) {
 #'
 #' @export
 mat_to_intervs <- function(mat) {
-    deprecate_soft("mat_to_intervs", "misha::gintervals.from_mat")
+    deprecate_soft("mat_to_intervs", "use `misha::gintervals.from_mat()`")
     misha::gintervals.from_mat(mat)
 }
 
-# Soft deprecation: warn once per session instead of on every call, and stay
-# quiet when the call comes from another package (nothing the user can fix).
+# misha.ext is retired: every export warns once per session with what to use
+# instead. Calls from a package, misha.ext itself included, stay quiet: the
+# user cannot fix those.
 # ponytail: rlang is already a dependency - no need for lifecycle.
-deprecate_soft <- function(old, new) {
-    caller <- topenv(parent.frame(2))
-    if (isNamespace(caller) && !identical(caller, topenv(environment()))) {
+deprecate_soft <- function(old, instead) {
+    if (isNamespace(topenv(parent.frame(2)))) {
         return(invisible(NULL))
     }
     rlang::warn(
-        sprintf("`%s()` is deprecated, use `%s()` instead.", old, new),
+        sprintf("misha.ext is retired. Instead of `%s()`, %s.", old, instead),
         class = "lifecycle_warning_deprecated",
         .frequency = "once",
         .frequency_id = paste0("misha.ext::", old)

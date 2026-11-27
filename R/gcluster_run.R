@@ -47,6 +47,7 @@ gcluster.run2 <- function(...,
                           num_proc_flag = "-l num_proc={num_proc}",
                           script = system.file("bin", "sgjob.sh", package = "misha.ext"),
                           verbose = FALSE) {
+    deprecate_soft("gcluster.run2", "use `misha::gcluster.run()` (SGE resources go in `opt.flags`)")
     if (!is.null(command_list)) {
         commands <- purrr::map(command_list, function(x) parse(text = x))
     } else {

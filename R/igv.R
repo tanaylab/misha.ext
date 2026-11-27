@@ -15,6 +15,7 @@
 #'
 #' @export
 fwrite_igv <- function(data, file, type = NULL, rm_intervalID = TRUE, feature_name = 1, ...) {
+    deprecate_soft("fwrite_igv", "write the file with `tgutil::fwrite()`")
     if (!is.null(type)) {
         header <- glue("#type={type}")
     } else {
